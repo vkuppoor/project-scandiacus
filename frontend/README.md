@@ -1,3 +1,7 @@
+# Getting Started with NPM
+
+To install NPM, visit [NodeJS.org](https://nodejs.org/en/). Install the version recommended for most users.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
