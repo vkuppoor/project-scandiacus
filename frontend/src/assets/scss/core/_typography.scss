@@ -1,0 +1,368 @@
+/* ************************************************************************************************ */
+/* Content **************************************************************************************** */
+/* ************************************************************************************************ */
+#section-main {
+	.content-area {
+
+	    a {
+			color: $color-orange-1;
+			font-family: $font3;
+			font-weight: bold;
+			font-weight: 700;
+
+	        &:hover {
+	            color: $color-green-1;
+	            }
+	    }
+
+	    h1 {
+		    font-family: $font2;
+			font-size: 2.95rem;
+		    font-weight: bold;
+		    font-weight: 700;
+		    line-height: 3.25rem;
+			}
+
+	    h2 {
+		    font-family: $font2;
+		    font-size: 2.15rem;
+		    font-weight: bold;
+		    font-weight: 700;
+		    line-height: 2.50rem;
+			}
+
+	    h3 {
+		    font-family: $font2;
+			font-size: 1.75rem;
+		    font-weight: bold;
+		    font-weight: 700;
+		    line-height: 2.75rem;
+			}
+
+	    h4 {
+			color: $color-blue-4;
+		    font-family: $font2;
+			font-size: 1.25rem;
+		    font-weight: bold;
+		    font-weight: 700;
+		    line-height: 1.85rem;
+			}
+
+	    h5 {
+			color: $color-blue-3;
+		    font-family: $font2;
+			font-size: 0.70rem;
+		    font-weight: normal;
+		    font-weight: 400;
+		    line-height: 1.00rem;
+			text-transform: uppercase;
+			}
+
+	    h6 {
+		    font-family: $font2;
+			font-size: 0.65rem;
+		    font-weight: normal;
+		    font-weight: 400;
+			}
+
+	    p {
+		    padding: 25px 0;
+		    font-family: $font3;
+		    font-size: 1.05rem;
+		    font-weight: normal;
+		    font-weight: 400;
+		    line-height: 1.25rem;
+			}
+
+		sup {
+			position: relative;
+			top: -0.65rem;
+			font-size: 50%;
+			}
+
+	    code {}
+
+	    address {}
+
+	    blockquote {
+		    position: relative;
+		    margin: 25px 0;
+			padding: 30px 0 0 155px;
+
+		    p {
+			    font-style: italic;
+
+			    &:first-child { padding-top: 0; }
+			    &:last-child { padding-bottom: 0; }
+		    }
+
+		    &::before {
+			    position: absolute;
+			    top: 0;
+			    left: 50px;
+			    display: block;
+			    width: 73px;
+			    height: 73px;
+			    color: $color-red-1;
+			    font-family: $fasolid;
+			    font-size: 4.50rem;
+			    line-height: 73px;
+			    text-align: center;
+
+			    /* https://fontawesome.com/v5.15/icons/quote-left?style=solid */
+			    content: '\f10d';
+			    }
+		}
+
+	    li {
+			margin: 0;
+			padding: 8px 0;
+		    font-family: $font3;
+		    font-size: 1.65rem;
+		    font-weight: normal;
+		    font-weight: 400;
+		    line-height: 2.25rem;
+			}
+
+	    ul {
+			margin: 10px 0 10px 30px;
+			padding: 0;
+		    list-style-type: disc;
+
+			li {
+				padding-left: 5px;
+				}
+
+			> li {
+
+				> ul {
+					margin-top: 4px;
+					margin-bottom: 0;
+					list-style-type: circle;
+
+					> li {
+
+						> ul {
+							margin-top: 4px;
+							margin-bottom: 0;
+							list-style-type: square;
+
+							> li {}
+						}
+					}
+				}
+			}
+	    }
+
+	    ol {
+			margin: 10px 0 10px 30px;
+		    padding: 0;
+		    list-style-type: decimal;
+
+			li {
+				padding-left: 5px;
+				}
+
+			> li {
+
+				> ol {
+					margin-top: 4px;
+					margin-bottom: 0;
+					list-style-type: lower-alpha;
+
+					> li {
+
+						> ol {
+							margin-top: 4px;
+							margin-bottom: 0;
+							list-style-type: lower-alpha;
+
+							> li {}
+						}
+					}
+				}
+			}
+		}
+
+		p {
+			+ ul,ol {
+				margin-top: 0;
+				}
+		}
+	}
+}
+
+
+/* Table */
+table {
+    &.table {
+        width: 100%;
+        max-width: 100%;
+        border-collapse: collapse;
+
+        &.max-width-25  { max-width:  25% !important; }
+        &.max-width-50  { max-width:  50% !important; }
+        &.max-width-75  { max-width:  75% !important; }
+        &.max-width-100 { max-width: 100% !important; }
+
+        tr {}
+        td {}
+        th {}
+
+        thead {
+            tr {}
+            td {}
+
+            th,
+            td {
+                padding: 0.85rem;
+                text-align: inherit;
+                vertical-align: bottom;
+                border-top: 1px solid $color-gray-c;
+                border-bottom: 2px solid $color-gray-c;
+                }
+
+            &.thead-light {}
+            &.thead-dark {}
+        }
+
+        tbody {
+            tr {}
+            th,
+            td {
+                padding: 0.85rem;
+                text-align: inherit;
+                vertical-align: top;
+                border-top: 1px solid $color-gray-b;
+                }
+        }
+
+        /* Table Striped */
+        &.table-striped {
+            tbody {
+                tr {
+                    &:nth-of-type(2n+1){
+                        background-color: rgba($color-black,0.05);
+                        }
+                }
+                th {}
+                td {}
+            }
+        }
+
+        /* Table Bordered */
+        &.table-bordered {
+            border: 1px solid $color-gray-b;
+            }
+
+        /* Table Dark */
+        &.table-dark {
+            color: $color-white;
+            border: 0;
+            background-color: $color-gray-7;
+
+            thead {
+                tr {}
+                th {
+                    border-color: $color-gray-9;
+                    }
+                td {
+                    border-color: $color-gray-9;
+                    }
+            }
+
+            tbody {
+                tr {}
+                th {
+                    border-color: $color-gray-9;
+                    }
+                td {
+                    border-color: $color-gray-9;
+                    }
+            }
+
+            /* Striped Dark Table */
+            &.table-striped {
+                tbody{
+                    tr {
+                        &:nth-of-type(2n+1){
+                            background-color: $color-gray-8;
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* Font Weights */
+.weight-100	{ font-weight: normal !important; font-weight: 100 !important; }
+.weight-200	{ font-weight: normal !important; font-weight: 200 !important; }
+.weight-300	{ font-weight: normal !important; font-weight: 300 !important; }
+.weight-400	{ font-weight: normal !important; font-weight: 400 !important; }
+.weight-500	{ font-weight:   bold !important; font-weight: 500 !important; }
+.weight-600	{ font-weight:   bold !important; font-weight: 600 !important; }
+.weight-700	{ font-weight:   bold !important; font-weight: 700 !important; } /* Should use <b> or <strong> */
+.weight-800	{ font-weight:   bold !important; font-weight: 800 !important; }
+.weight-900	{ font-weight:   bold !important; font-weight: 900 !important; }
+
+
+/* Text Align */
+.align-left 	{ text-align: left !important; }
+.align-center 	{ text-align: center !important; }
+.align-right 	{ text-align: right !important; }
+.align-justify 	{ text-align: justify !important; }
+
+
+/* Font Sizes */
+/**
+ * Generates Font size Classes
+ * Generates class values in increments of 1, from 0 to 100.
+ * Margin E.g. .fontsize-1px, .fontsize-10px, etc.
+ */
+@each $space in $spaceamounts {
+	.fontsize-#{$space}px { font-size: #{$space}px !important; }
+}
+
+
+/**
+ * Generates Line Height Classes
+ * Generates class values in increments of 1, from 0 to 100.
+ * Margin E.g. .lineheight-1px, .lineheight-10px, etc.
+ */
+@each $space in $spaceamounts {
+	.lineheight-#{$space}px { line-height: #{$space}px !important; }
+}
+
+
+/**
+ * Generates Margin and Padding Classes
+ * Generates class values in increments of 1, from 0 to 100.
+ * Margin E.g. .margin-all-0, .margin-all-20, .margin-top-10, .margin-left-100, etc.
+ * Padding E.g. .padding-all-0, .padding-all-20, .padding-top-10, .padding-left-100, etc.
+ */
+@each $space in $spaceamounts {
+	@each $side in $spacesides {
+		@if $side == all {
+			//.margin-#{str-slice($side, 0, 1)}-#{$space} {
+			.margin-#{$side}-#{$space} {
+				margin: #{$space}px !important;
+			}
+			//.padding-#{str-slice($side, 0, 1)}-#{$space} {
+			.padding-#{$side}-#{$space} {
+				padding: #{$space}px !important;
+			}
+		} @else {
+			//.margin-#{str-slice($side, 0, 1)}-#{$space} {
+			.margin-#{$side}-#{$space} {
+				margin-#{$side}: #{$space}px !important;
+			}
+			//.padding-#{str-slice($side, 0, 1)}-#{$space} {
+			.padding-#{$side}-#{$space} {
+				padding-#{$side}: #{$space}px !important;
+			}
+		}
+
+	}
+}
