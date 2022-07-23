@@ -11,11 +11,11 @@ class App extends Component {
   render() {
     return (
       <div className="main-grid">
-        <div className="component-col">
+        <div className="component-col left-sidebar">
           <FileManager />
         </div>
-        <div className="component-col"></div>
-        <div className="component-col"></div>
+        <div className="component-col main-panel"></div>
+        <div className="component-col right-sidebar"></div>
       </div>
     );
   }
