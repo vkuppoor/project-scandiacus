@@ -1,0 +1,12 @@
+#THIS WILL BE COMPLETED AT THE END OF DEVELOPMENT!
+
+fastapi==0.78.0
+psycopg2-binary==2.9.3
+pytest==7.1.2
+pytest-cov==3.0.0
+python-dotenv==0.20.0
+python-multipart==0.0.5
+requests==2.27.1
+SQLAlchemy==1.4.37
+uvicorn==0.17.6
+pillow==3.1.1
