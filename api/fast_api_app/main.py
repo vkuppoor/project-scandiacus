@@ -22,6 +22,9 @@ def output_YOLO(path: str, label: str, coords: schemas.boundingBox) -> str:
     Returns:
         None
     """
+    #implement no allowance of repeating bounding box
+    #get labelmap to work
+    #implement a database
     coords = (coords.x0, coords.y0, coords.x1, coords.y1)
     path = path.strip("\"")
     return crud.add_YOLO_annotation(path = path, label = label, coords = coords)
