@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  api:
+    build: ./api
+    container_name: api_c
+    volumes:
+      - ./:/app/api:ro
+    command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - '8000:8000'
+  frontend:
+    container_name: frontend_c
+    image: iad-frontend
+    build: 
+      target: development
+    # volumes: #volumes might not work on windows
+    #   - ./frontend:/app
+    #   - ./app/node_modules
+    # volumes:
+    #   - ./:/app/frontend:ro
+    volumes:
+      - ./frontend/src:/app/frontend/src
+    ports:
+      - '3000:3000'
+    # stdin_open: true
+    # tty: true
+    # command: npm run start
