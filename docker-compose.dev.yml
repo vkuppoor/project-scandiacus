@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  # #https://medium.com/analytics-vidhya/how-to-deploy-a-python-api-with-fastapi-with-nginx-and-docker-1328cbf41bc
+  # web:
+  #   build: nginx
+  #   ports:
+  #     - 8000:8000
+  #     - 443:443
+  #   depends_on:
+  #     - api
+  api:
+    build: ./api
+    container_name: api_c
+    volumes:
+      - ./:/app/api:ro
+    command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - '8000:8000'
+    # environment:
+    #   - PORT=8080
+    # ports:
+    #   - '8000:8000'
+    # environment:
+    #   - PORT=8080
+    # ports:
+    #   - 8080:8080
+  frontend:
+    container_name: frontend_c
+    image: iad-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    # build: 
+    #   target: development
+    # build:
+    #   target: development
+    # volumes: #volumes might not work on windows
+    #   - ./frontend:/app
+    #   - ./app/node_modules
+    # volumes:
+    #   - ./:/app/frontend:ro
+    volumes:
+      - ./frontend/src:/app/frontend/src
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true
+    # command: npm run start
