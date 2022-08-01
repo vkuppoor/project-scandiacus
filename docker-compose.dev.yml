@@ -14,7 +14,11 @@ services:
     container_name: api_c
     volumes:
       - ./:/app/api:ro
-    command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
+    # command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
+    # ports:
+    #   - '8000:8000'
+    environment:
+      - PORT=8080
     ports:
       - '8000:8000'
     # environment:
