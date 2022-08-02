@@ -14,7 +14,7 @@ services:
     container_name: api_c
     volumes:
       - ./:/app/api:ro
-    command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: pre-commit install ; uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - '8000:8000'
     # environment:
@@ -42,6 +42,7 @@ services:
     #   - ./:/app/frontend:ro
     volumes:
       - ./frontend/src:/app/frontend/src
+    command: npm start ; sass --watch ./src/assets/scss:./src/assets/css
     ports:
       - '3000:3000'
     stdin_open: true
