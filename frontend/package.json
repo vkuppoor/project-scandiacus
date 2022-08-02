@@ -47,5 +47,10 @@
   },
   "lint-staged": {
     "src/**/*.js": "prettier --write --ignore-unknown"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint-staged"
+    }
   }
 }
