@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "poststart": "cd .. && husky install",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -41,10 +42,5 @@
   },
   "devDependencies": {
     "husky": "^8.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "echo \"[Husky] pre-commit\""
-    }
   }
 }
