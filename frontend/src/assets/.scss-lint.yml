@@ -1,0 +1,24 @@
+scss_files: "scss/**/*.css.scss"
+
+linters:
+  BorderZero:
+    enabled: false
+
+  Indentation:
+    exclude:
+      - "path/to/file.scss"
+      - "path/to/directory/**"
+    severity: warning
+    width: 2
+
+  Comment:
+    enabled: false
+
+  IdSelector:
+    enabled: false
+
+  NestingDepth:
+    enabled: false
+
+  LeadingZero:
+    enabled: false

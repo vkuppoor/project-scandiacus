@@ -16,7 +16,7 @@ services:
       - ./:/app/api:ro
     command: uvicorn api.fast_api_app.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
-      - '8000:8000'
+      - "8000:8000"
     # environment:
     #   - PORT=8080
     # ports:
@@ -31,7 +31,7 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
-    # build: 
+    # build:
     #   target: development
     # build:
     #   target: development
@@ -42,8 +42,9 @@ services:
     #   - ./:/app/frontend:ro
     volumes:
       - ./frontend/src:/app/frontend/src
+    command: npm start ; sass --watch ./src/assets/scss:./src/assets/css
     ports:
-      - '3000:3000'
+      - "3000:3000"
     stdin_open: true
     tty: true
     # command: npm run start

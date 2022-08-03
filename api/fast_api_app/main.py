@@ -9,10 +9,14 @@ from . import crud, models, schemas
 
 app = FastAPI()
 
-@app.get("/test", tags = ["testing"],)
+
+@app.get(
+    "/test",
+    tags=["testing"],
+)
 def test() -> dict:
     """Tests the api to make sure it is running.
-    
+
     Args:
         None
 
