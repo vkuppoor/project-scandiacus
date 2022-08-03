@@ -42,9 +42,9 @@ services:
     #   - ./:/app/frontend:ro
     volumes:
       - ./frontend/src:/app/frontend/src
-    command: npm start ; sass --watch ./src/assets/scss:./src/assets/css
+    command: npm start #; sass --watch ./src/assets/scss:./src/assets/css
     ports:
-      - "3000:3000"
+      - "8080:8080"
     stdin_open: true
     tty: true
     # command: npm run start
