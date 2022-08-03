@@ -10,6 +10,7 @@ services:
   #   depends_on:
   #     - api
   api:
+    platform: linux/amd64
     build: ./api
     container_name: api_c
     volumes:
@@ -26,6 +27,7 @@ services:
     # ports:
     #   - 8080:8080
   frontend:
+    platform: linux/amd64
     container_name: frontend_c
     image: iad-frontend
     build:
@@ -42,7 +44,7 @@ services:
     #   - ./:/app/frontend:ro
     volumes:
       - ./frontend/src:/app/frontend/src
-    command: npm start ; sass --watch ./src/assets/scss:./src/assets/css
+    command: npm run start ; npm run scss
     ports:
       - "3000:3000"
     stdin_open: true

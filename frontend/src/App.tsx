@@ -1,15 +1,10 @@
-import React, { Component } from "react";
-import "./assets/css/app.css";
+import React from 'react';
+import logo from './logo.svg';
+import './assets/css/app.css'
+import FileManager from './components/FileManager';
 
-import FileManager from "./components/FileManager";
-
-class App extends Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  // state = {  }
-  render() {
-    return (
+function App() {
+  return (
       <div className="main-grid">
         <div className="component-col left-sidebar">
           <FileManager />
@@ -18,7 +13,6 @@ class App extends Component {
         <div className="component-col right-sidebar"></div>
       </div>
     );
-  }
 }
 
 export default App;
