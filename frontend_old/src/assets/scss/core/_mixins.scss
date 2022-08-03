@@ -1,0 +1,122 @@
+/* ************************************************************************************************ */
+/* SCSS Mixins ************************************************************************************ */
+/* ************************************************************************************************ */
+
+/* Transitions:
+ * Usage: @include transition(color .3s ease); */
+@mixin transition($args...) {
+  @each $vendor in $vendors {
+    #{$vendor}transition: $args;
+  }
+}
+
+/* Transform:
+ * Usage: @include transform(scale(0)); */
+@mixin transform($args...) {
+  @each $vendor in $vendors {
+    #{$vendor}transform: $args;
+  }
+}
+
+/* Cross-browser Box-Sizing:
+ * Usage: @include boxsizing(border-box); */
+@mixin boxsizing($size: border-box) {
+  @each $vendor in $vendors {
+    #{$vendor}box-sizing: $size;
+  }
+}
+
+/* Cross-browser Opacity:
+ * Usage: @include opacity(0.8); */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/* Cross-browser Border-Radius:
+ * Usage: @include rounded(3px); */
+@mixin rounded($radius: 0.5em) {
+  @each $vendor in $vendors {
+    #{$vendor}border-radius: $radius;
+  }
+}
+
+/* Cross-browser User-Select:
+ * Usage: @include userselect(none); */
+@mixin userselect($val: none) {
+  @each $vendor in $vendors {
+    #{$vendor}user-select: $val;
+  }
+}
+
+/* Cross-browser Animation:
+ * Usage: @include animation(spin 1s infinite); */
+@mixin animation($val: none) {
+  @each $vendor in $vendors {
+    #{$vendor}animation: $val;
+  }
+}
+
+/* Cross-browser filter: blur():
+ * Usage: @include blur(3px); */
+@mixin blur($blur: 5px) {
+  @each $vendor in $vendors {
+    #{$vendor}filter: blur($blur);
+  }
+}
+
+/* Cross-browser Box-Shadow:
+ * Usage:
+	@include boxshadow(
+		0 1px 4px rgba(0,0,0,0.3),
+		0 0 40px rgba(0,0,0,0.1) inset
+	);
+*/
+@mixin boxshadow($shadow1, $shadow2: false, $shadow3: false, $shadow4: false) {
+  $params: $shadow1;
+
+  @if $shadow2 {
+    $params: $shadow1, $shadow2;
+  }
+  @if $shadow3 {
+    $params: $shadow1, $shadow2, $shadow3;
+  }
+  @if $shadow4 {
+    $params: $shadow1, $shadow2, $shadow3, $shadow4;
+  }
+
+  @each $vendor in $vendors {
+    #{$vendor}box-shadow: $params;
+  }
+}
+
+/* Cross-browser Linear Background Gradient:
+ * Usage:
+	@include linear-gradient(45deg,black,white);
+*/
+@mixin linear-gradient($args...) {
+  @each $vendor in $vendors {
+    background-image: #{$vendor}linear-gradient($args);
+  }
+}
+
+/* Clearfix:
+ * Usage:
+	.container-with-floated-children {
+		@extend %clearfix;
+	}
+*/
+%clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

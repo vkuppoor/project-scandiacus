@@ -1,0 +1,54 @@
+/* ************************************************************************************************ */
+/* Header ***************************************************************************************** */
+/* ************************************************************************************************ */
+#header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  color: $color-white;
+  text-align: right;
+  border-bottom: 1px solid $color-gray-1;
+  background-color: $color-blue-5;
+
+  /* Bootstrap Override */
+  nav {
+    &.navbar {
+      padding-top: 0;
+      padding-bottom: 0;
+      display: block;
+
+      > .container-fluid {
+        display: block;
+      }
+    }
+  }
+
+  /* Logo and Site Title */
+  .logo-and-title {
+    float: left;
+
+    img {
+      margin: 8px 0 0;
+      display: block;
+      float: left;
+      width: 40px;
+      border: 0 none;
+    }
+
+    .logo-lbl {
+      padding: 17px 0 17px 10px;
+      display: block;
+      float: left;
+      font-weight: bold;
+    }
+  }
+
+  /* Header Greeting */
+  .header-greeting {
+    margin: 0;
+    padding: 17px 0;
+    float: right;
+  }
+}
