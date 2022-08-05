@@ -44,7 +44,7 @@ services:
     #   - ./:/app/frontend:ro
     volumes:
       - ./frontend/src:/app/frontend/src
-    command: npm run start ; npm run scss
+    command: npm run start
     ports:
       - "3000:3000"
     stdin_open: true
