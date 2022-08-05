@@ -6,12 +6,12 @@ import FileManager from './components/FileManager';
 
 function App() {
   return (
-      <div id="main-grid" className="grid grid-cols-4 h-screen">
-        <div className="sidebar">
+      <div className="main-grid | grid grid-cols-12 h-screen">
+        <div className="sidebar | col-span-2">
           <FileManager />
         </div>
-        <div className="col-span-2"></div>
-        <div className="sidebar"></div>
+        <div className="main-panel | col-span-7"></div>
+        <div className="sidebar | col-span-3"></div>
       </div>
     );
 }
