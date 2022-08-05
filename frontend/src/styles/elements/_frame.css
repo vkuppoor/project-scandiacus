@@ -1,0 +1,8 @@
+@layer components {
+    #main-grid {
+        .sidebar {
+            @apply bg-slate-200 shadow-sm;
+        }
+    }
+}
+
