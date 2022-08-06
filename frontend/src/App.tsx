@@ -3,7 +3,12 @@ import logo from "./logo.svg";
 // import './assets/css/app.css'
 import "./App.css";
 import LeftSidebar from "./components/left_sidebar/LeftSidebar";
-import { UserFile } from "./interfaces/UserFile";
+// import { UserFile } from "./interfaces/UserFile";
+
+export interface UserFile {
+  name: React.Key | null | undefined;
+  preview: string | undefined;
+}
 
 const App: React.FC = () => {
   const [files, setFiles] = React.useState<UserFile[]>([]);

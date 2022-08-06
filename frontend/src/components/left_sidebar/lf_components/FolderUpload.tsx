@@ -4,7 +4,7 @@ import { Container } from "reactstrap";
 import { useDropzone, FileWithPath } from "react-dropzone";
 import { scryRenderedComponentsWithType } from "react-dom/test-utils";
 
-import { UserFile } from "../../../interfaces/UserFile";
+import { UserFile } from "../../../App";
 
 interface Props {
   files: UserFile[];
@@ -12,8 +12,6 @@ interface Props {
 }
 
 const FolderUpload = ({ files, setFiles }: Props) => {
-  //   const [files, setFiles]: [files: any[], setFiles: any] = React.useState([]);
-
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/jpeg": [".jpeg", ".jpg"],
