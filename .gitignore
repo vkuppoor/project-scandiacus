@@ -352,5 +352,5 @@ MigrationBackup/
 # macOS
 .DS_Store
 
-# Test Images
+# Test Images Folder
 test_images/*
