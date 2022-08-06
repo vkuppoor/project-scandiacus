@@ -15,11 +15,6 @@ repos:
     rev: v2.7.1
     hooks:
       - id: prettier
-  - repo: https://github.com/pre-commit/mirrors-scss-lint.git
-    rev: v0.59.0
-    hooks:
-      - id: scss-lint
-        args: [--config=frontend/src/assets/.scss-lint.yml]
   - repo: https://github.com/psf/black.git
     rev: stable
     hooks:
