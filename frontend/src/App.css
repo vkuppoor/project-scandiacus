@@ -493,6 +493,15 @@ video {
   grid-column: span 3 / span 3;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
 .flex {
   display: flex;
 }
@@ -501,12 +510,12 @@ video {
   display: grid;
 }
 
-.hidden {
-  display: none;
-}
-
 .h-screen {
   height: 100vh;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .w-full {
