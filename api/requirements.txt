@@ -7,3 +7,4 @@ requests==2.27.1
 SQLAlchemy==1.4.37
 uvicorn==0.18.2
 pre-commit==2.20.0
+pillow==9.2.0

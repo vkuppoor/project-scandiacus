@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+#a folder for test images
+test_images/* 
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
