@@ -3,14 +3,15 @@ import { Component } from "react";
 import { Container } from "reactstrap";
 import { useDropzone, FileWithPath } from "react-dropzone";
 import { UploadIcon } from "@heroicons/react/outline";
-import { UserFile } from "../../../App";
+// import { UserFileTypes } from "../../../App";
 
 interface Props {
-    files: UserFile[];
-    setFiles: React.Dispatch<React.SetStateAction<UserFile[]>>;
+    files: any;
+    setFiles: React.Dispatch<React.SetStateAction<any>>;
+    imageFileTypes: string[];
 }
 
-const FolderUpload = ({ files, setFiles }: Props) => {
+const FolderUpload = ({ files, setFiles, imageFileTypes }: Props) => {
     const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
         useDropzone({
             accept: {
