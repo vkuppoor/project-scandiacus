@@ -11,7 +11,7 @@ interface Props {
 
 const LeftSidebar = ({ files, setFiles }: Props) => {
   return (
-    <Container className="file-manager-sidebar | flex flex-col">
+    <Container className="left-sidebar | flex flex-col">
       <Container className="top | flex flex-col justify-around">
         <FolderUpload files={files} setFiles={setFiles} />
       </Container>

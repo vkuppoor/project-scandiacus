@@ -2,8 +2,7 @@ import * as React from "react";
 import { Component } from "react";
 import { Container } from "reactstrap";
 import { useDropzone, FileWithPath } from "react-dropzone";
-import { scryRenderedComponentsWithType } from "react-dom/test-utils";
-
+import { UploadIcon } from "@heroicons/react/outline";
 import { UserFile } from "../../../App";
 
 interface Props {
@@ -12,48 +11,38 @@ interface Props {
 }
 
 const FolderUpload = ({ files, setFiles }: Props) => {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    accept: {
-      "image/jpeg": [".jpeg", ".jpg"],
-      "image/png": [".png"],
-      "image/bmp": [".bmp"],
-      "image/tif": [".tif", ".tiff"],
-      "image/dng": [".dng"],
-      "image/webp": [".webp"],
-      "image/mpo": [".mpo"],
-      "text/html": [".html", ".htm"],
-      "application/json": [".json"],
-      "application/xml": [".xml"],
-      "text/plain": [".txt"],
-    },
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
-      console.log(files);
-    },
-  });
-
-  const images = files.map(
-    (file: {
-      name: React.Key | null | undefined;
-      preview: string | undefined;
-    }) => (
-      <div key={file.name}>
-        <img src={file.preview} className="image | w-full h-20 my-1" alt="" />
-      </div>
-    )
-  );
+  const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
+    useDropzone({
+      accept: {
+        "image/jpeg": [".jpeg", ".jpg"],
+        "image/png": [".png"],
+        "image/bmp": [".bmp"],
+        "image/tif": [".tif", ".tiff"],
+        "image/dng": [".dng"],
+        "image/webp": [".webp"],
+        "image/mpo": [".mpo"],
+        "text/html": [".html", ".htm"],
+        "application/json": [".json"],
+        "application/xml": [".xml"],
+        "text/plain": [".txt"],
+      },
+      onDrop: (acceptedFiles) => {
+        setFiles(
+          acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        );
+        console.log(files);
+      },
+    });
 
   return (
     <Container>
       <Container
         {...getRootProps()}
-        className="dropzone | flex flex-col items-center bg-white h-20 m-1"
+        className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded | hover:cursor-pointer"
       >
         <input
           {...getInputProps()}
@@ -63,8 +52,27 @@ const FolderUpload = ({ files, setFiles }: Props) => {
           // directory=""
           // multiple
         />
+        <div className="input-content">
+          <div className="upload-icon-div  | flex flex-col items-center">
+            <UploadIcon className="upload-icon | text-slate-500 h-2/5 w-2/5" />
+          </div>
+          //
+          https://github.com/lyhd/reactjs/blob/react-drag-drop-dropzone/src/index.js
+          fix for isDragActive issue
+          {isDragActive ? (
+            <div className="dnd-items | flex flex-col items-center">
+              <p>Release to drop files here</p>
+            </div>
+          ) : (
+            <div className="dnd-items | flex flex-col items-center">
+              <p>Drag & drop files here</p>
+              <button className="browse-files | bg-slate-200 rounded p-2">
+                Browse files
+              </button>
+            </div>
+          )}
+        </div>
       </Container>
-      <div className="images | m-1">{images}</div>
     </Container>
   );
 };
