@@ -53,7 +53,9 @@ const App: React.FC = () => {
                     setFiles={setFiles}
                     imageFileTypes={imageFileTypes}
                     outputFileTypes={outputFileTypes}
+                    filteredImageFiles={filteredImageFiles}
                     setFilteredImageFiles={setFilteredImageFiles}
+                    filteredOutputFiles={filteredOutputFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
                     onFilterFiles={handleFilterFiles}
                 />

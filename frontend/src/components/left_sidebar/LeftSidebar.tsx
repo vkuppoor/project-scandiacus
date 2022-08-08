@@ -9,7 +9,9 @@ interface Props {
     setFiles: React.Dispatch<React.SetStateAction<any>>;
     imageFileTypes: string[];
     outputFileTypes: string[];
+    filteredImageFiles: any;
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
+    filteredOutputFiles: any;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
     onFilterFiles: any;
 }
@@ -19,7 +21,9 @@ const LeftSidebar = ({
     setFiles,
     imageFileTypes,
     outputFileTypes,
+    filteredImageFiles,
     setFilteredImageFiles,
+    filteredOutputFiles,
     setFilteredOutputFiles,
     onFilterFiles,
 }: Props) => {
