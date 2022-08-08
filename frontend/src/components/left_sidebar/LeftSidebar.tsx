@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { Container } from "reactstrap";
 
 import FolderUpload from "./lf_components/FolderUpload";
-// import { UserFileTypes } from "../../App";
 
 interface Props {
     files: any;
