@@ -1,0 +1,3 @@
+0 car
+1 person
+2 tree
