@@ -8,7 +8,9 @@ interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
     imageFileTypes: string[];
+    outputFileTypes: string[];
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
+    setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
     onFilterFiles: any;
 }
 
@@ -16,7 +18,9 @@ const LeftSidebar = ({
     files,
     setFiles,
     imageFileTypes,
+    outputFileTypes,
     setFilteredImageFiles,
+    setFilteredOutputFiles,
     onFilterFiles,
 }: Props) => {
     return (
@@ -26,7 +30,9 @@ const LeftSidebar = ({
                     files={files}
                     setFiles={setFiles}
                     imageFileTypes={imageFileTypes}
+                    outputFileTypes={outputFileTypes}
                     setFilteredImageFiles={setFilteredImageFiles}
+                    setFilteredOutputFiles={setFilteredOutputFiles}
                     onFilterFiles={onFilterFiles}
                 />
             </Container>

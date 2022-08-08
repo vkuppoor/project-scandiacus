@@ -9,7 +9,9 @@ interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
     imageFileTypes: string[];
+    outputFileTypes: string[];
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
+    setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
     onFilterFiles: any;
 }
 
@@ -17,7 +19,9 @@ const FolderUpload = ({
     files,
     setFiles,
     imageFileTypes,
+    outputFileTypes,
     setFilteredImageFiles,
+    setFilteredOutputFiles,
     onFilterFiles,
 }: Props) => {
     // React.useEffect(() => {
@@ -47,8 +51,12 @@ const FolderUpload = ({
                         })
                     )
                 );
-                setFilteredImageFiles(onFilterFiles(files, imageFileTypes));
-                console.log(files);
+                setFilteredImageFiles(
+                    onFilterFiles(acceptedFiles, imageFileTypes)
+                );
+                setFilteredOutputFiles(
+                    onFilterFiles(acceptedFiles, outputFileTypes)
+                );
             },
         });
 

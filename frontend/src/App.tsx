@@ -6,7 +6,7 @@ import MainPanel from "./components/main_panel/MainPanel";
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
-    console.log("files", files);
+    // console.log("files", files);
 
     const [imageFileTypes, setImageFileTypes] = React.useState<string[]>([
         ".jpeg",
@@ -22,7 +22,19 @@ const App: React.FC = () => {
         ".html",
     ]);
 
+    const [outputFileTypes, setOutputFileTypes] = React.useState<any>([
+        ".txt",
+        ".json",
+        ".xml",
+    ]);
+
     const [filteredImageFiles, setFilteredImageFiles] = React.useState<any>([]);
+    // console.log("filteredImageFiles", filteredImageFiles);
+
+    const [filteredOutputFiles, setFilteredOutputFiles] = React.useState<any>(
+        []
+    );
+    // console.log("filteredOutputFiles", filteredOutputFiles);
 
     const handleFilterFiles = (f: any, fTypes: string[]) => {
         const filteredFiles = f.filter((file: any) => {
@@ -30,9 +42,6 @@ const App: React.FC = () => {
                 return file.path.indexOf(element) !== -1;
             });
         });
-        console.log("filtered files", filteredFiles);
-        console.log("imageFileTypes", fTypes);
-        console.log("f", f);
         return filteredFiles;
     };
 
@@ -43,7 +52,9 @@ const App: React.FC = () => {
                     files={files}
                     setFiles={setFiles}
                     imageFileTypes={imageFileTypes}
+                    outputFileTypes={outputFileTypes}
                     setFilteredImageFiles={setFilteredImageFiles}
+                    setFilteredOutputFiles={setFilteredOutputFiles}
                     onFilterFiles={handleFilterFiles}
                 />
             </div>

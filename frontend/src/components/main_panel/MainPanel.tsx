@@ -15,12 +15,6 @@ const MainPanel = ({
     imageFileTypes,
     filteredImageFiles,
 }: Props) => {
-    // const filteredFiles = files.filter(
-    //     (file: any) => file.path.indexOf(".txt") !== -1
-    // );
-
-    console.log("filteredImageFiles", filteredImageFiles);
-
     const images = filteredImageFiles.map(
         (file: any) => (
             <div key={file.name}>
@@ -46,8 +40,6 @@ const MainPanel = ({
         //     </div>
         // )
     );
-
-    console.log("files", files);
 
     return (
         <Container className="main-panel | flex flex-col ">
