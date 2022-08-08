@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
@@ -8,3 +9,14 @@
 
 @import "./elements/_frame.css";
 
+=======
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@import "./core/_colors.css";
+
+@import "./elements/_frame.css";
+>>>>>>> 50fb664211902a85641a0665a795958185b7c35c

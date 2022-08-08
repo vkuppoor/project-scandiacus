@@ -1,6 +1,10 @@
 import os
 from collections import defaultdict
+<<<<<<< HEAD
 from typing import List, Tuple
+=======
+from typing import List
+>>>>>>> 50fb664211902a85641a0665a795958185b7c35c
 
 from fastapi import Depends, FastAPI, HTTPException
 
