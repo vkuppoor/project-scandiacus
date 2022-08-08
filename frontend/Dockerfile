@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM node:16-alpine3.16 
-=======
 FROM node:16-alpine3.16
->>>>>>> 50fb664211902a85641a0665a795958185b7c35c
 
 WORKDIR /app/frontend
 
@@ -18,11 +14,7 @@ CMD [ "npm", "start" ]
 
 #################################################################################################
 
-<<<<<<< HEAD
-# FROM node:16-alpine3.16 
-=======
 # FROM node:16-alpine3.16
->>>>>>> 50fb664211902a85641a0665a795958185b7c35c
 # # as development
 
 # # ENV NODE_ENV development
@@ -95,7 +87,3 @@ CMD [ "npm", "start" ]
 # COPY --from=builder /opt/src/frontend /app/frontend
 
 # CMD [ "npm", "start" ]
-<<<<<<< HEAD
-
-=======
->>>>>>> 50fb664211902a85641a0665a795958185b7c35c
