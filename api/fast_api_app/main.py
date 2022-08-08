@@ -1,9 +1,8 @@
 import os
 from collections import defaultdict
-from typing import List
+from typing import List, Tuple
 
 from fastapi import Depends, FastAPI, HTTPException
-from typing import Tuple
 
 
 from . import crud, models, schemas, functions
@@ -11,7 +10,8 @@ from . import crud, models, schemas, functions
 app = FastAPI()
 
 @app.post("/write-to-output/{file_path}/{output_format}", tags = ["testing"],)
-def write_to_output(file_path: str, output_format: str, annotations: list):
+def write_to_output(file_path: str, output_format: str, 
+    annotations: List[schemas.annotation]):
     """Writes to a specified output type with all of the users annotations.
     
     Args:
@@ -22,8 +22,8 @@ def write_to_output(file_path: str, output_format: str, annotations: list):
     Returns:
         None
     """
-    #get labelmap to work
     #implement a database
+    print("BBB")
     output_format = output_format.upper()
     if(output_format == "YOLO"):
         file_path = file_path.strip("\"")

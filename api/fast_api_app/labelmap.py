@@ -1,17 +1,17 @@
 import os
 #All of the functions concerning the labelmap for YOLO
 
-def add_to_label_map(file_path, labelmap_text):
+def add_to_labelmap(file_path, labelmap_text):
     """Adds to the labelmap file that maps the numbers to labels.
     Enables the user to figure out which number belongs to which class.
     
     Args: 
-        label: str (The label to be added to the file)
+        file_path: the path of the image
+        labelmap: str (The label to be added to the file)
 
     Returns:
         None
     """
-    print("LLL")
     file_path = file_path[0:file_path.rindex('\\')]  + "labelmap.txt" 
    
     with open(file_path, 'w') as f: 

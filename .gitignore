@@ -10,9 +10,6 @@
 *.userosscache
 *.sln.docstates
 
-#a folder for test images
-test_images/* 
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -354,3 +351,6 @@ MigrationBackup/
 
 # macOS
 .DS_Store
+
+# testing images
+test_images/*
