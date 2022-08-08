@@ -7,25 +7,17 @@ interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
     imageFileTypes: string[];
+    filteredImageFiles: any;
 }
-const MainPanel = ({ files, setFiles, imageFileTypes }: Props) => {
+const MainPanel = ({
+    files,
+    setFiles,
+    imageFileTypes,
+    filteredImageFiles,
+}: Props) => {
     // const filteredFiles = files.filter(
     //     (file: any) => file.path.indexOf(".txt") !== -1
     // );
-
-    const filterFiles = (f: any, fTypes: string[]) => {
-        const filteredFiles = f.filter((file: any) => {
-            return fTypes.find((element) => {
-                return file.path.indexOf(element) !== -1;
-            });
-        });
-        console.log("filtered files", filteredFiles);
-        console.log("imageFileTypes", fTypes);
-        console.log("f", f);
-        return filteredFiles;
-    };
-
-    const filteredImageFiles = filterFiles(files, imageFileTypes);
 
     console.log("filteredImageFiles", filteredImageFiles);
 

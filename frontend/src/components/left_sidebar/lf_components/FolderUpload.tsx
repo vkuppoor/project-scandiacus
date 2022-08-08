@@ -9,9 +9,21 @@ interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
     imageFileTypes: string[];
+    setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
+    onFilterFiles: any;
 }
 
-const FolderUpload = ({ files, setFiles, imageFileTypes }: Props) => {
+const FolderUpload = ({
+    files,
+    setFiles,
+    imageFileTypes,
+    setFilteredImageFiles,
+    onFilterFiles,
+}: Props) => {
+    // React.useEffect(() => {
+    //     setFilteredImageFiles(onFilterFiles(files, imageFileTypes));
+    // }, []);
+
     const { acceptedFiles, getRootProps, getInputProps, isDragActive } =
         useDropzone({
             accept: {
@@ -35,6 +47,7 @@ const FolderUpload = ({ files, setFiles, imageFileTypes }: Props) => {
                         })
                     )
                 );
+                setFilteredImageFiles(onFilterFiles(files, imageFileTypes));
                 console.log(files);
             },
         });
