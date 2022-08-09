@@ -1,4 +1,4 @@
-FROM node:16-alpine3.16 
+FROM node:16-alpine3.16
 
 WORKDIR /app/frontend
 
@@ -14,7 +14,7 @@ CMD [ "npm", "start" ]
 
 #################################################################################################
 
-# FROM node:16-alpine3.16 
+# FROM node:16-alpine3.16
 # # as development
 
 # # ENV NODE_ENV development
@@ -87,4 +87,3 @@ CMD [ "npm", "start" ]
 # COPY --from=builder /opt/src/frontend /app/frontend
 
 # CMD [ "npm", "start" ]
-

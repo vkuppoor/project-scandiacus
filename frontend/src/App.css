@@ -524,16 +524,16 @@ video {
     height: 10rem;
 }
 
-.h-2\/5 {
-    height: 40%;
+.h-10 {
+    height: 2.5rem;
 }
 
 .w-full {
     width: 100%;
 }
 
-.w-2\/5 {
-    width: 40%;
+.w-10 {
+    width: 2.5rem;
 }
 
 .grid-cols-12 {
@@ -564,6 +564,11 @@ video {
     border-radius: 0.25rem;
 }
 
+.rounded-b-none {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
 .bg-white {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -576,6 +581,10 @@ video {
 
 .p-2 {
     padding: 0.5rem;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-slate-500 {

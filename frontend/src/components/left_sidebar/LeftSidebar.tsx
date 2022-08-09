@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { Container } from "reactstrap";
 
 import FolderUpload from "./lf_components/FolderUpload";
-// import { UserFileTypes } from "../../App";
 
 interface Props {
     files: any;
@@ -27,6 +26,10 @@ const LeftSidebar = ({
     setFilteredOutputFiles,
     onFilterFiles,
 }: Props) => {
+    const [rejectedFiles, setRejectedFiles] = React.useState<any>([]);
+
+    const [isFileRejected, setIsFileRejected] = React.useState<boolean>(false);
+
     return (
         <Container className="left-sidebar | flex flex-col">
             <Container className="top | flex flex-col justify-around">
@@ -37,6 +40,10 @@ const LeftSidebar = ({
                     outputFileTypes={outputFileTypes}
                     setFilteredImageFiles={setFilteredImageFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
+                    rejectedFiles={rejectedFiles}
+                    setRejectedFiles={setRejectedFiles}
+                    isFileRejected={isFileRejected}
+                    setIsFileRejected={setIsFileRejected}
                     onFilterFiles={onFilterFiles}
                 />
             </Container>
