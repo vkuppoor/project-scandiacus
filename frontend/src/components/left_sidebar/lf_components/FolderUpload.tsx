@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container } from "reactstrap";
 import { useDropzone } from "react-dropzone";
 import { UploadIcon } from "@heroicons/react/outline";
@@ -10,6 +10,10 @@ interface Props {
     outputFileTypes: string[];
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
+    rejectedFiles: any;
+    setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
+    isFileRejected: boolean;
+    setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
     onFilterFiles: any;
 }
 
@@ -20,12 +24,12 @@ const FolderUpload = ({
     outputFileTypes,
     setFilteredImageFiles,
     setFilteredOutputFiles,
+    rejectedFiles,
+    setRejectedFiles,
+    isFileRejected,
+    setIsFileRejected,
     onFilterFiles,
 }: Props) => {
-    // React.useEffect(() => {
-    //     setFilteredImageFiles(onFilterFiles(files, imageFileTypes));
-    // }, []);
-
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         accept: {
             "image/jpeg": [".jpeg", ".jpg"],
@@ -53,31 +57,43 @@ const FolderUpload = ({
                 onFilterFiles(acceptedFiles, outputFileTypes)
             );
         },
+        onDropRejected: (fileRejections) => {
+            console.log("fileRejections", fileRejections);
+            setRejectedFiles(fileRejections);
+            setIsFileRejected(true);
+        },
     });
 
+    let fileRejectMessage: any;
+    if (isFileRejected === true) {
+        fileRejectMessage = (
+            <span className="reject-message | text-center">
+                Some file(s) were rejected
+            </span>
+        );
+    }
+
     return (
-        <Container>
+        <Container className="folder-upload | flex flex-col justify-center items-center">
             <Container
                 {...getRootProps()}
-                className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded | hover:cursor-pointer"
+                className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded rounded-b-none | hover:cursor-pointer"
             >
                 <input
                     {...getInputProps()}
                     className="folder-upload | w-full"
-                    // type="file"
-                    // // webkitdirectory=""
-                    // directory=""
-                    // multiple
                 />
                 <div className="input-content">
                     <div className="upload-icon-div  | flex flex-col items-center">
                         <UploadIcon className="upload-icon | text-slate-500 h-10 w-10 m-2" />
                     </div>
                     <div className="dnd-items | flex flex-col items-center">
-                        <p>Drag & drop files here</p>
-                        {/* <button className="browse-files | bg-slate-200 rounded p-2">
+                        <p className="dnd-message | text-center">
+                            Drag & drop files here
+                        </p>
+                        <button className="browse-files | bg-slate-200 rounded p-2">
                             Browse files
-                        </button> */}
+                        </button>
                     </div>
                 </div>
             </Container>
@@ -86,11 +102,3 @@ const FolderUpload = ({
 };
 
 export default FolderUpload;
-
-// declare module "react" {
-//   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-//     // extends React's HTMLAttributes
-//     directory?: string;
-//     // webkitdirectory?:string;
-//   }
-// }

@@ -34,6 +34,9 @@ const App: React.FC = () => {
     const [filteredOutputFiles, setFilteredOutputFiles] = React.useState<any>(
         []
     );
+
+    // console.log("rejectedFiles", rejectedFiles);
+
     // console.log("filteredOutputFiles", filteredOutputFiles);
 
     const handleFilterFiles = (f: any, fTypes: string[]) => {

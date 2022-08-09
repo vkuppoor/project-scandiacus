@@ -22,6 +22,10 @@ const LeftSidebar = ({
     setFilteredOutputFiles,
     onFilterFiles,
 }: Props) => {
+    const [rejectedFiles, setRejectedFiles] = React.useState<any>([]);
+
+    const [isFileRejected, setIsFileRejected] = React.useState<boolean>(false);
+
     return (
         <Container className="left-sidebar | flex flex-col">
             <Container className="top | flex flex-col justify-around">
@@ -32,6 +36,10 @@ const LeftSidebar = ({
                     outputFileTypes={outputFileTypes}
                     setFilteredImageFiles={setFilteredImageFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
+                    rejectedFiles={rejectedFiles}
+                    setRejectedFiles={setRejectedFiles}
+                    isFileRejected={isFileRejected}
+                    setIsFileRejected={setIsFileRejected}
                     onFilterFiles={onFilterFiles}
                 />
             </Container>
