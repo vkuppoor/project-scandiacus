@@ -71,13 +71,13 @@ const FolderUpload = ({
                 />
                 <div className="input-content">
                     <div className="upload-icon-div  | flex flex-col items-center">
-                        <UploadIcon className="upload-icon | text-slate-500 h-2/5 w-2/5" />
+                        <UploadIcon className="upload-icon | text-slate-500 h-10 w-10 m-2" />
                     </div>
                     <div className="dnd-items | flex flex-col items-center">
                         <p>Drag & drop files here</p>
-                        <button className="browse-files | bg-slate-200 rounded p-2">
+                        {/* <button className="browse-files | bg-slate-200 rounded p-2">
                             Browse files
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             </Container>
