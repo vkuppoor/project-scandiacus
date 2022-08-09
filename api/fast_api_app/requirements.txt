@@ -1,5 +1,3 @@
-#THIS WILL BE COMPLETED AT THE END OF DEVELOPMENT!
-
 fastapi==0.78.0
 psycopg2-binary==2.9.3
 pytest==7.1.2

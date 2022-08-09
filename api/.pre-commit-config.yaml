@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-# See https://pre-commit.com for more information
-# See https://pre-commit.com/hooks.html for more hooks
-repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-xml
-      - id: check-added-large-files
-      - id: requirements-txt-fixer
-      - id: check-json
-  - repo: https://github.com/pre-commit/mirrors-prettier.git
-    rev: v2.7.1
-    hooks:
-      - id: prettier
-  - repo: https://github.com/psf/black.git
-    rev: stable
-    hooks:
-      - id: black
-        args: [--line-length=120]
-=======
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
@@ -45,4 +21,3 @@ repos:
       hooks:
           - id: black
             args: [--line-length=120]
->>>>>>> 98a521005449f07be646abb91c25b96b5913d50e

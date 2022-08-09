@@ -1,8 +1,5 @@
 fastapi==0.78.0
-<<<<<<< HEAD
-=======
 pre-commit==2.20.0
->>>>>>> 50fb664211902a85641a0665a795958185b7c35c
 pytest==7.1.2
 pytest-cov==3.0.0
 python-dotenv==0.20.0
@@ -10,8 +7,4 @@ python-multipart==0.0.5
 requests==2.27.1
 SQLAlchemy==1.4.37
 uvicorn==0.18.2
-<<<<<<< HEAD
-pre-commit==2.20.0
-pillow==9.2.0
-=======
->>>>>>> 50fb664211902a85641a0665a795958185b7c35c
+pathlib==1.0.1

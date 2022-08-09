@@ -1,7 +1,7 @@
 from PIL import Image
 
-def convert_coordinates_to_YOLO(path, coords):
-    img = Image.open(path)
+def convert_coordinates_to_YOLO(file_path, coords):
+    img = Image.open(file_path)
 
     img_width = img.width
     img_height = img.height

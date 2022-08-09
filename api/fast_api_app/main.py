@@ -22,8 +22,6 @@ def write_to_output(file_path: str, output_format: str,
     Returns:
         None
     """
-    #implement a database
-    print("BBB")
     output_format = output_format.upper()
     if(output_format == "YOLO"):
         file_path = file_path.strip("\"")

@@ -1,5 +1,4 @@
 import os
-#All of the functions concerning the labelmap for YOLO
 
 def add_to_labelmap(file_path, labelmap_text):
     """Adds to the labelmap file that maps the numbers to labels.
@@ -12,13 +11,16 @@ def add_to_labelmap(file_path, labelmap_text):
     Returns:
         None
     """
-    file_path = file_path[0:file_path.rindex('\\')]  + "labelmap.txt" 
-   
+    try:
+        file_path = file_path[0:file_path.rindex('\\') + 1]  + "labelmap.txt" 
+    except:
+        file_path = "labelmap.txt"
+
     with open(file_path, 'w') as f: 
         f.write(labelmap_text)
 
 
-def delete_label_from_label_map(label, labels):
+def delete_label_from_label_map(label):
     """Deletes a specific label from a labelmap
     Enables the user to figure out which number belongs to which class.
     
@@ -34,7 +36,7 @@ def delete_label_from_label_map(label, labels):
     i = 0
     while i < len(lines):
         if(label in lines[i]):
-            lines[i].pop() #this is done to avoid popping a list in a for loop
+            lines[i].pop() #remove the label from the line
         else:
             i+=1
             words = lines[i].split()
