@@ -1,11 +1,9 @@
-import os
-from collections import defaultdict
-from typing import List, Tuple
+from typing import List
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI
 
 
-from . import crud, models, schemas, functions
+from . import crud, schemas
 
 app = FastAPI()
 
