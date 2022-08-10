@@ -63,7 +63,10 @@ const FolderUpload = ({
         <div className="folder-upload | flex flex-col justify-center items-center">
             <div
                 {...getRootProps()}
-                className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded rounded-b-none | hover:cursor-pointer"
+                className="dropzone
+                    | flex flex-col justify-center items-center
+                    | bg-white h-40 w-4/5 m-2 p-2 rounded border-dashed border-2 border-sky-500
+                    | hover:cursor-pointer"
             >
                 <input
                     {...getInputProps()}
