@@ -1,53 +1,53 @@
 import React from "react";
-import { DocumentRemoveIcon } from "@heroicons/react/outline";
-import { TrashIcon } from "@heroicons/react/solid";
+import { DocumentRemoveIcon, PhotographIcon } from "@heroicons/react/outline";
+import { TrashIcon, MinusIcon, PlusIcon } from "@heroicons/react/solid";
 
 interface Props {
     rejectedFiles: any;
     isFileRejected: boolean;
+    setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
     filteredImageFiles: any;
     filteredOutputFiles: any;
+    setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
+    isFileListActive: boolean;
+    setIsFileListActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FolderDisplay = ({
     rejectedFiles,
     isFileRejected,
+    setIsFileRejected,
     filteredImageFiles,
     filteredOutputFiles,
+    setRejectedFiles,
+    isFileListActive,
+    setIsFileListActive,
 }: Props) => {
-    let rejectedFilesDOM: any;
-    console.log("rejectedFiles FolderDisplay.tsx", rejectedFiles);
-    // if (isFileRejected === true) {
-    //     rejectedFilesDOM = rejectedFiles.map((item: any, index: number) => {
-    //         console.log("rejected file names", item.file.name);
-    //         console.log("rejected file index", index);
-    //         <div className="" key={index}>
-    //             <span>{item.file.name}</span>;
-    //         </div>;
-    //     });
-    // }
-    // <span className="reject-message | text-center">
-    //     Some file(s) were rejected
-    // </span>
+    const [isRejectListActive, setIsRejectListActive] =
+        React.useState<boolean>(false);
 
-    console.log("FolderDisplay FilteredImageFiles", filteredImageFiles);
+    const handleMinimizeRejectList = () => {
+        setIsRejectListActive(!isRejectListActive);
+    };
+
+    const handleMinimizeFileList = () => {
+        setIsFileListActive(!isFileListActive);
+    };
+
+    const handleDeleteRejectList = () => {
+        setRejectedFiles([]);
+        setIsFileRejected(false);
+    };
+
+    let rejectedFilesDOM: any;
 
     return (
         <div className="folder-display | flex flex-col justify-center items-center">
-            {/* isFileRejected ? (
-                rejectedFiles.map((item: any, index: number) => (
-                    console.log("rejected file names", item.file.name);
-                    console.log("rejected file index", index);
-                    <div className="" key={index}>
-                        <span>{item.file.name}</span>;
-                    </div>;
-                ))
-            ) */}
             {isFileRejected ? (
                 <div
                     className="rejected-files
                         | flex flex-col
-                        | bg-white h-56 w-4/5 m-2 p-2 rounded overflow-scroll"
+                        | bg-white w-4/5 m-2 p-2 rounded"
                 >
                     <div
                         className="rejected-file-options
@@ -57,35 +57,90 @@ const FolderDisplay = ({
                         <div className="rejected-file-title">
                             Rejected Files
                         </div>
-                        <button className="delete | bg-red-400 rounded p-1">
-                            <TrashIcon className="trash-icon | w-6 text-white" />
-                        </button>
-                    </div>
-                    {rejectedFiles.map((item: any, index: number) => (
-                        <div
-                            key={index}
-                            className="rejected-file-container
-                                | flex justify-start items-center
-                                | bg-slate-100 m-1 p-2 rounded"
-                        >
-                            <DocumentRemoveIcon className="rejected-file-icon | w-10 mr-2 text-red-400" />
-                            <div className="rejected-file-name">
-                                {item.file.name}
-                            </div>
+                        <div className="reject-buttons | flex gap-x-1">
+                            <button className="collapse | bg-slate-400 rounded p-1">
+                                {isRejectListActive ? (
+                                    <MinusIcon
+                                        className="minus-icon | w-6 text-white"
+                                        onClick={handleMinimizeRejectList}
+                                    />
+                                ) : (
+                                    <PlusIcon
+                                        className="minus-icon | w-6 text-white"
+                                        onClick={handleMinimizeRejectList}
+                                    />
+                                )}
+                            </button>
+                            <button className="delete | bg-red-400 rounded p-1">
+                                <TrashIcon
+                                    className="trash-icon | w-6 text-white"
+                                    onClick={handleDeleteRejectList}
+                                />
+                            </button>
                         </div>
-                    ))}
+                    </div>
+                    {isRejectListActive ? (
+                        <div className="reject-list-container | h-56 overflow-scroll">
+                            {rejectedFiles.map((item: any, index: number) => (
+                                <div
+                                    key={index}
+                                    className="rejected-file-container
+                                        | flex justify-start items-center
+                                        | bg-slate-100 m-1 p-2 rounded"
+                                >
+                                    <DocumentRemoveIcon className="rejected-file-icon | w-8 h-8 mr-2 text-red-400" />
+                                    <div className="rejected-file-name">
+                                        {item.file.name}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : null}
                 </div>
             ) : null}
-            <div className="console-log"></div>
-            {/* <div className="accepted-files">
-                {filteredImageFiles.map((item: any, index: number) => (
-                    <div key={index} className="drop-file-preview__item">
-                        <div className="drop-file-preview__item__info">
-                            <p>{item.file.name}</p>
-                        </div>
+            <div
+                className="file-list
+                        | flex flex-col
+                        | bg-white w-4/5 m-2 p-2 rounded"
+            >
+                <div
+                    className="file-options
+                        | flex justify-between items-center
+                        | m-1 px-1"
+                >
+                    <div className="file-list-title">File List</div>
+                    <button className="collapse | bg-slate-400 rounded p-1">
+                        {isFileListActive ? (
+                            <MinusIcon
+                                className="minus-icon | w-6 text-white"
+                                onClick={handleMinimizeFileList}
+                            />
+                        ) : (
+                            <PlusIcon
+                                className="minus-icon | w-6 text-white"
+                                onClick={handleMinimizeFileList}
+                            />
+                        )}
+                    </button>
+                </div>
+                {isFileListActive ? (
+                    <div className="file-list-container | h-56 overflow-scroll">
+                        {filteredImageFiles.map((item: any, index: number) => (
+                            <div
+                                key={index}
+                                className="file-list-item-container
+                                | flex justify-start items-center
+                                | bg-slate-100 m-1 p-2 rounded"
+                            >
+                                <PhotographIcon className="rejected-file-icon | w-8 h-8 min-w-8 min-h-8 mr-2 text-slate-400" />
+                                <div className="rejected-file-name">
+                                    {item.name}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div> */}
+                ) : null}
+            </div>
             {/* {rejectedFilesDOM} */}
         </div>
     );

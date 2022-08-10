@@ -30,6 +30,9 @@ const LeftSidebar = ({
 
     const [isFileRejected, setIsFileRejected] = React.useState<boolean>(false);
 
+    const [isFileListActive, setIsFileListActive] =
+        React.useState<boolean>(false);
+
     return (
         <div className="left-sidebar | flex flex-col">
             <div className="top | flex flex-col justify-around">
@@ -43,12 +46,17 @@ const LeftSidebar = ({
                     setRejectedFiles={setRejectedFiles}
                     setIsFileRejected={setIsFileRejected}
                     onFilterFiles={onFilterFiles}
+                    setIsFileListActive={setIsFileListActive}
                 />
                 <FolderDisplay
                     filteredImageFiles={filteredImageFiles}
                     filteredOutputFiles={filteredOutputFiles}
                     rejectedFiles={rejectedFiles}
+                    setRejectedFiles={setRejectedFiles}
                     isFileRejected={isFileRejected}
+                    setIsFileRejected={setIsFileRejected}
+                    isFileListActive={isFileListActive}
+                    setIsFileListActive={setIsFileListActive}
                 />
             </div>
             <div className="bottom | flex flex-col justify-end"></div>

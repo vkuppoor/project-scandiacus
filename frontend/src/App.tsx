@@ -6,7 +6,7 @@ import MainPanel from "./components/main_panel/MainPanel";
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
-    console.log("files", files);
+    // console.log("files", files);
 
     const [imageFileTypes, setImageFileTypes] = React.useState<string[]>([
         ".jpeg",

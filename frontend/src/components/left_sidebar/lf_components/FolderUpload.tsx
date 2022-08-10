@@ -10,6 +10,7 @@ interface Props {
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
     setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
+    setIsFileListActive: React.Dispatch<React.SetStateAction<boolean>>;
     setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
     onFilterFiles: any;
 }
@@ -22,6 +23,7 @@ const FolderUpload = ({
     setFilteredImageFiles,
     setFilteredOutputFiles,
     setRejectedFiles,
+    setIsFileListActive,
     setIsFileRejected,
     onFilterFiles,
 }: Props) => {
@@ -39,6 +41,9 @@ const FolderUpload = ({
             "application/xml": [".xml"],
             "text/plain": [".txt"],
         },
+        onDropAccepted: () => {
+            setIsFileListActive(true);
+        },
         onDrop: (acceptedFiles) => {
             setFiles(
                 acceptedFiles.map((file) =>
@@ -53,7 +58,6 @@ const FolderUpload = ({
             );
         },
         onDropRejected: (fileRejections) => {
-            console.log("fileRejections", fileRejections);
             setRejectedFiles(fileRejections);
             setIsFileRejected(true);
         },
