@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Container } from "reactstrap";
 import { useDropzone } from "react-dropzone";
 import { UploadIcon } from "@heroicons/react/outline";
 
@@ -10,9 +9,7 @@ interface Props {
     outputFileTypes: string[];
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
-    rejectedFiles: any;
     setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
-    isFileRejected: boolean;
     setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
     onFilterFiles: any;
 }
@@ -24,9 +21,7 @@ const FolderUpload = ({
     outputFileTypes,
     setFilteredImageFiles,
     setFilteredOutputFiles,
-    rejectedFiles,
     setRejectedFiles,
-    isFileRejected,
     setIsFileRejected,
     onFilterFiles,
 }: Props) => {
@@ -64,18 +59,9 @@ const FolderUpload = ({
         },
     });
 
-    let fileRejectMessage: any;
-    if (isFileRejected === true) {
-        fileRejectMessage = (
-            <span className="reject-message | text-center">
-                Some file(s) were rejected
-            </span>
-        );
-    }
-
     return (
-        <Container className="folder-upload | flex flex-col justify-center items-center">
-            <Container
+        <div className="folder-upload | flex flex-col justify-center items-center">
+            <div
                 {...getRootProps()}
                 className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded rounded-b-none | hover:cursor-pointer"
             >
@@ -96,8 +82,8 @@ const FolderUpload = ({
                         </button>
                     </div>
                 </div>
-            </Container>
-        </Container>
+            </div>
+        </div>
     );
 };
 

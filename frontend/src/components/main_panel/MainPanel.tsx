@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "reactstrap";
 
 interface Props {
     files: any;
@@ -21,9 +20,9 @@ const MainPanel = ({
     ));
 
     return (
-        <Container className="main-panel | flex flex-col ">
+        <div className="main-panel | flex flex-col ">
             <div className="images | m-1">{images}</div>
-        </Container>
+        </div>
     );
 };
 

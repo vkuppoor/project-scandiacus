@@ -1,7 +1,7 @@
 import React from "react";
-import { Container } from "reactstrap";
 
 import FolderUpload from "./lf_components/FolderUpload";
+import FolderDisplay from "./lf_components/FolderDisplay";
 
 interface Props {
     files: any;
@@ -31,8 +31,8 @@ const LeftSidebar = ({
     const [isFileRejected, setIsFileRejected] = React.useState<boolean>(false);
 
     return (
-        <Container className="left-sidebar | flex flex-col">
-            <Container className="top | flex flex-col justify-around">
+        <div className="left-sidebar | flex flex-col">
+            <div className="top | flex flex-col justify-around">
                 <FolderUpload
                     files={files}
                     setFiles={setFiles}
@@ -40,15 +40,19 @@ const LeftSidebar = ({
                     outputFileTypes={outputFileTypes}
                     setFilteredImageFiles={setFilteredImageFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
-                    rejectedFiles={rejectedFiles}
                     setRejectedFiles={setRejectedFiles}
-                    isFileRejected={isFileRejected}
                     setIsFileRejected={setIsFileRejected}
                     onFilterFiles={onFilterFiles}
                 />
-            </Container>
-            <Container className="bottom | flex flex-col justify-end"></Container>
-        </Container>
+                <FolderDisplay
+                    filteredImageFiles={filteredImageFiles}
+                    filteredOutputFiles={filteredOutputFiles}
+                    rejectedFiles={rejectedFiles}
+                    isFileRejected={isFileRejected}
+                />
+            </div>
+            <div className="bottom | flex flex-col justify-end"></div>
+        </div>
     );
 };
 
