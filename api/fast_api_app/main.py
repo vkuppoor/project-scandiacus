@@ -42,7 +42,7 @@ async def write_to_output(file_path: Path, output_format: OutputFormats, image_i
     """Writes to a specified output type with all of the users annotations.
 
     Args:
-        file_path: str (path to an img file)
+        file_path: Path (path to an img file)
         output_format: str (the format of the output file)
         annotations: List(JSON) (the labels and coordinates of all of the
             annotations made by the user)

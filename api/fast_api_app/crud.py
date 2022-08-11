@@ -1,5 +1,6 @@
+from email import encoders
 from pathlib import Path
-from . import schemas
+from . import schemas, encoders
 import json
 
 
@@ -11,15 +12,20 @@ def write_to_output_createML(file_path: Path, image_info: list[schemas.ImageInfo
             {
                 "image": images.image_name,
                 "annotations": [
-                    {"label": i.label, "coords": {"x": i.coord[0], "y": i.coord[1]}}  # does not take decimal though
+                    {
+                        "label": i.label,
+                        "coordinates": {
+                            "x": i.coord[0],
+                            "y": i.coord[1],
+                            "width": round((i.coord[2] - i.coord[0]), 1),
+                            "height": round((i.coord[3] - i.coord[1]), 1),
+                        },
+                    }
                     for i in images.annotations
                 ],
             }
         )
 
-    output_as_str = json.dumps(output, cls=schemas.DecimalEncoder)
-    print(output_as_str)
-
     file_path = file_path.joinpath("createML.json")
     with file_path.open("w", encoding="utf-8") as f:
-        json.dump(output, f, cls=schemas.DecimalEncoder, indent=4)
+        json.dump(output, f, cls=encoders.DecimalEncoder, indent=4)
