@@ -31,6 +31,8 @@ const App: React.FC = () => {
     const [filteredImageFiles, setFilteredImageFiles] = React.useState<any>([]);
     // console.log("filteredImageFiles", filteredImageFiles);
 
+    const [imageIndex, setImageIndex] = React.useState<number>(0);
+
     const [filteredOutputFiles, setFilteredOutputFiles] = React.useState<any>(
         []
     );
@@ -56,7 +58,11 @@ const App: React.FC = () => {
                     setFiles={setFiles}
                     imageFileTypes={imageFileTypes}
                     outputFileTypes={outputFileTypes}
+                    filteredImageFiles={filteredImageFiles}
                     setFilteredImageFiles={setFilteredImageFiles}
+                    imageIndex={imageIndex}
+                    setImageIndex={setImageIndex}
+                    filteredOutputFiles={filteredOutputFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
                     onFilterFiles={handleFilterFiles}
                 />
@@ -67,6 +73,7 @@ const App: React.FC = () => {
                     setFiles={setFiles}
                     imageFileTypes={imageFileTypes}
                     filteredImageFiles={filteredImageFiles}
+                    imageIndex={imageIndex}
                 />
             </div>
             <div className="sidebar | col-span-3"></div>

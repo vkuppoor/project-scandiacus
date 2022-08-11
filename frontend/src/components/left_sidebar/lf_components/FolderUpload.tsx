@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Container } from "reactstrap";
 import { useDropzone } from "react-dropzone";
 import { UploadIcon } from "@heroicons/react/outline";
 
@@ -10,10 +9,10 @@ interface Props {
     outputFileTypes: string[];
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
-    rejectedFiles: any;
     setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
-    isFileRejected: boolean;
+    setIsFileListActive: React.Dispatch<React.SetStateAction<boolean>>;
     setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
+    setImageIndex: React.Dispatch<React.SetStateAction<number>>;
     onFilterFiles: any;
 }
 
@@ -24,10 +23,10 @@ const FolderUpload = ({
     outputFileTypes,
     setFilteredImageFiles,
     setFilteredOutputFiles,
-    rejectedFiles,
     setRejectedFiles,
-    isFileRejected,
+    setIsFileListActive,
     setIsFileRejected,
+    setImageIndex,
     onFilterFiles,
 }: Props) => {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -44,6 +43,9 @@ const FolderUpload = ({
             "application/xml": [".xml"],
             "text/plain": [".txt"],
         },
+        onDropAccepted: () => {
+            setIsFileListActive(true);
+        },
         onDrop: (acceptedFiles) => {
             setFiles(
                 acceptedFiles.map((file) =>
@@ -56,28 +58,22 @@ const FolderUpload = ({
             setFilteredOutputFiles(
                 onFilterFiles(acceptedFiles, outputFileTypes)
             );
+            setImageIndex(0);
         },
         onDropRejected: (fileRejections) => {
-            console.log("fileRejections", fileRejections);
             setRejectedFiles(fileRejections);
             setIsFileRejected(true);
         },
     });
 
-    let fileRejectMessage: any;
-    if (isFileRejected === true) {
-        fileRejectMessage = (
-            <span className="reject-message | text-center">
-                Some file(s) were rejected
-            </span>
-        );
-    }
-
     return (
-        <Container className="folder-upload | flex flex-col justify-center items-center">
-            <Container
+        <div className="folder-upload | flex flex-col justify-center items-center">
+            <div
                 {...getRootProps()}
-                className="dropzone | flex flex-col justify-center items-center | bg-white h-40 m-2 p-2 rounded rounded-b-none | hover:cursor-pointer"
+                className="dropzone
+                    | flex flex-col justify-center items-center
+                    | bg-white h-40 w-4/5 m-2 p-2 rounded border-dashed border-2 border-sky-500
+                    | hover:cursor-pointer"
             >
                 <input
                     {...getInputProps()}
@@ -96,8 +92,8 @@ const FolderUpload = ({
                         </button>
                     </div>
                 </div>
-            </Container>
-        </Container>
+            </div>
+        </div>
     );
 };
 
