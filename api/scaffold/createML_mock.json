@@ -1,0 +1,25 @@
+[
+    {
+        "image": "image1.jpg",
+        "annotations": [
+            {
+                "label": "car",
+                "coordinates": {
+                    "x": 12.5,
+                    "y": 45,
+                    "width": 79,
+                    "height": 88
+                }
+            },
+            {
+                "label": "not car",
+                "coordinates": {
+                    "x": 12.3,
+                    "y": 170,
+                    "width": 251,
+                    "height": 350
+                }
+            }
+        ]
+    }
+]
