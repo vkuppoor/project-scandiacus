@@ -2,6 +2,8 @@ import React from "react";
 
 import FolderUpload from "./lf_components/FolderUpload";
 import FolderDisplay from "./lf_components/FolderDisplay";
+import ImgNavButtons from "./lf_components/ImgNavButtons";
+import { NumberLiteralType } from "typescript";
 
 interface Props {
     files: any;
@@ -10,6 +12,8 @@ interface Props {
     outputFileTypes: string[];
     filteredImageFiles: any;
     setFilteredImageFiles: React.Dispatch<React.SetStateAction<any>>;
+    imageIndex: number;
+    setImageIndex: React.Dispatch<React.SetStateAction<number>>;
     filteredOutputFiles: any;
     setFilteredOutputFiles: React.Dispatch<React.SetStateAction<any>>;
     onFilterFiles: any;
@@ -22,6 +26,8 @@ const LeftSidebar = ({
     outputFileTypes,
     filteredImageFiles,
     setFilteredImageFiles,
+    imageIndex,
+    setImageIndex,
     filteredOutputFiles,
     setFilteredOutputFiles,
     onFilterFiles,
@@ -44,9 +50,10 @@ const LeftSidebar = ({
                     setFilteredImageFiles={setFilteredImageFiles}
                     setFilteredOutputFiles={setFilteredOutputFiles}
                     setRejectedFiles={setRejectedFiles}
-                    setIsFileRejected={setIsFileRejected}
-                    onFilterFiles={onFilterFiles}
                     setIsFileListActive={setIsFileListActive}
+                    setIsFileRejected={setIsFileRejected}
+                    setImageIndex={setImageIndex}
+                    onFilterFiles={onFilterFiles}
                 />
                 <FolderDisplay
                     filteredImageFiles={filteredImageFiles}
@@ -59,7 +66,13 @@ const LeftSidebar = ({
                     setIsFileListActive={setIsFileListActive}
                 />
             </div>
-            <div className="bottom | flex flex-col justify-end"></div>
+            <div className="bottom | flex flex-col justify-end items-center">
+                <ImgNavButtons
+                    filteredImageFiles={filteredImageFiles}
+                    imageIndex={imageIndex}
+                    setImageIndex={setImageIndex}
+                />
+            </div>
         </div>
     );
 };

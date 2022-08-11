@@ -12,6 +12,7 @@ interface Props {
     setRejectedFiles: React.Dispatch<React.SetStateAction<any>>;
     setIsFileListActive: React.Dispatch<React.SetStateAction<boolean>>;
     setIsFileRejected: React.Dispatch<React.SetStateAction<boolean>>;
+    setImageIndex: React.Dispatch<React.SetStateAction<number>>;
     onFilterFiles: any;
 }
 
@@ -25,6 +26,7 @@ const FolderUpload = ({
     setRejectedFiles,
     setIsFileListActive,
     setIsFileRejected,
+    setImageIndex,
     onFilterFiles,
 }: Props) => {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -56,6 +58,7 @@ const FolderUpload = ({
             setFilteredOutputFiles(
                 onFilterFiles(acceptedFiles, outputFileTypes)
             );
+            setImageIndex(0);
         },
         onDropRejected: (fileRejections) => {
             setRejectedFiles(fileRejections);

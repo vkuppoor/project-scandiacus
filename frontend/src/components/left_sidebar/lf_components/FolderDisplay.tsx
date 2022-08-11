@@ -39,8 +39,6 @@ const FolderDisplay = ({
         setIsFileRejected(false);
     };
 
-    let rejectedFilesDOM: any;
-
     return (
         <div className="folder-display | flex flex-col justify-center items-center">
             {isFileRejected ? (
@@ -109,21 +107,23 @@ const FolderDisplay = ({
                         | m-1 px-1"
                 >
                     <div className="file-list-title">File List</div>
-                    <button className="collapse | bg-slate-400 rounded p-1">
-                        {isFileListActive ? (
-                            <MinusIcon
-                                className="minus-icon | w-6 text-white"
-                                onClick={handleMinimizeFileList}
-                            />
-                        ) : (
-                            <PlusIcon
-                                className="minus-icon | w-6 text-white"
-                                onClick={handleMinimizeFileList}
-                            />
-                        )}
-                    </button>
+                    {filteredImageFiles.length !== 0 ? (
+                        <button className="collapse | bg-slate-400 rounded p-1">
+                            {isFileListActive ? (
+                                <MinusIcon
+                                    className="minus-icon | w-6 text-white"
+                                    onClick={handleMinimizeFileList}
+                                />
+                            ) : (
+                                <PlusIcon
+                                    className="minus-icon | w-6 text-white"
+                                    onClick={handleMinimizeFileList}
+                                />
+                            )}
+                        </button>
+                    ) : null}
                 </div>
-                {isFileListActive ? (
+                {filteredImageFiles.length !== 0 && isFileListActive ? (
                     <div className="file-list-container | h-56 overflow-scroll">
                         {filteredImageFiles.map((item: any, index: number) => (
                             <div
