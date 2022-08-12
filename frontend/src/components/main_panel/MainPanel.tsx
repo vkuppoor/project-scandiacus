@@ -36,18 +36,18 @@ const MainPanel = ({
     //             <p>{imageFromIndex.path}</p>
     //         </div>
     //     ) : null;
-
+    console.log("filteredImageFiles", filteredImageFiles);
     return (
-        <div className="main-panel | flex justify-center items-center | w-full">
+        <div className="main-panel | flex justify-center items-center | w-full h-screen">
             {/* <div className="images | m-1"></div> */}
             {filteredImageFiles.length !== 0 ? (
                 <div
                     key={imageFromIndex.name}
-                    className="image-container | flex justify-center | w-4/5"
+                    className="image-container |  flex justify-center items-center | w-4/5 h-4/5"
                 >
                     <img
                         src={imageFromIndex.preview}
-                        className="image | h-full my-1"
+                        className="image | my-1 h-full w-auto object-contain"
                         alt=""
                     />
                 </div>
