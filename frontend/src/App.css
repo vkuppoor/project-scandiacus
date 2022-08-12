@@ -544,6 +544,14 @@ video {
     height: 2.5rem;
 }
 
+.h-4\/5 {
+    height: 80%;
+}
+
+.h-auto {
+    height: auto;
+}
+
 .w-full {
     width: 100%;
 }
@@ -562,6 +570,10 @@ video {
 
 .w-10 {
     width: 2.5rem;
+}
+
+.w-auto {
+    width: auto;
 }
 
 .grow {
@@ -648,6 +660,14 @@ video {
 .bg-slate-200 {
     --tw-bg-opacity: 1;
     background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+
+.object-contain {
+    object-fit: contain;
+}
+
+.object-cover {
+    object-fit: cover;
 }
 
 .p-2 {
