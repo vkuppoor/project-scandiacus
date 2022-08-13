@@ -38,6 +38,8 @@ const App: React.FC = () => {
         []
     );
 
+    const [labels, setLabels] = React.useState<string[]>([]);
+
     // console.log("rejectedFiles", rejectedFiles);
 
     // console.log("filteredOutputFiles", filteredOutputFiles);
