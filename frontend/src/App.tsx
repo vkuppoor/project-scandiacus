@@ -3,6 +3,7 @@ import React from "react";
 import "./App.css";
 import LeftSidebar from "./components/left_sidebar/LeftSidebar";
 import MainPanel from "./components/main_panel/MainPanel";
+import RightSidebar from "./components/right_sidebar/RightSidebar";
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
@@ -76,7 +77,9 @@ const App: React.FC = () => {
                     imageIndex={imageIndex}
                 />
             </div>
-            <div className="sidebar | col-span-3"></div>
+            <div className="sidebar | col-span-3">
+                <RightSidebar />
+            </div>
         </div>
     );
 };
