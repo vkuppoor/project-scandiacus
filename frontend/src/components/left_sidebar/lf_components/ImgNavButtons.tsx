@@ -51,13 +51,13 @@ const ImgNavButtons = ({
     return (
         <div className="nav-button-container | flex gap-0 | bg-white h-20 w-full">
             <button
-                className="prev-button | grow |  bg-slate-300"
+                className="prev-button | grow |  bg-slate-500 text-white | hover:bg-blue-400"
                 onClick={handlePrev}
             >
                 Prev
             </button>
             <button
-                className="next-button | grow | bg-slate-300"
+                className="next-button | grow | bg-slate-500 text-white | hover:bg-slate-400"
                 onClick={handleNext}
             >
                 Next
