@@ -40,8 +40,8 @@ const LeftSidebar = ({
         React.useState<boolean>(false);
 
     return (
-        <div className="left-sidebar | flex flex-col">
-            <div className="top | flex flex-col justify-around">
+        <div className="left-sidebar | flex flex-col | h-full">
+            <div className="top | flex flex-col flex-1">
                 <FolderUpload
                     files={files}
                     setFiles={setFiles}
@@ -66,7 +66,7 @@ const LeftSidebar = ({
                     setIsFileListActive={setIsFileListActive}
                 />
             </div>
-            <div className="bottom | flex flex-col justify-end items-center">
+            <div className="bottom | flex flex-col flex-1 justify-end items-center">
                 <ImgNavButtons
                     filteredImageFiles={filteredImageFiles}
                     imageIndex={imageIndex}
