@@ -38,7 +38,9 @@ const App: React.FC = () => {
         []
     );
 
-    const [labels, setLabels] = React.useState<string[]>([]);
+    const [labels, setLabels] = React.useState<string[]>(["cat", "dog"]);
+
+    const [selectedLabel, setSelectedLabel] = React.useState<string>("");
 
     // console.log("rejectedFiles", rejectedFiles);
 
@@ -80,7 +82,11 @@ const App: React.FC = () => {
                 />
             </div>
             <div className="sidebar | col-span-3">
-                <RightSidebar />
+                <RightSidebar
+                    labels={labels}
+                    setLabels={setLabels}
+                    setSelectedLabel={setSelectedLabel}
+                />
             </div>
         </div>
     );
