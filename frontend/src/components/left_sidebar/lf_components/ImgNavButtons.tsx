@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 interface Props {
     filteredImageFiles: any;
@@ -11,15 +11,39 @@ const ImgNavButtons = ({
     imageIndex,
     setImageIndex,
 }: Props) => {
-    useEffect(() => {
-        document.addEventListener("keydown", handleNextKey, true);
-        document.addEventListener("keydown", handlePrevKey, true);
+    const arrayEqual = (a1: any[], a2: any[]) => {
+        if (a1.length !== a2.length) return false;
+        for (let i = 0; i < a1.length; i++) {
+            if (a1[i] !== a2[i]) {
+                return false;
+            }
+        }
+        return true;
+    };
 
+    const listenKeyDown = () => {
         return () => {
-            document.removeEventListener("keydown", handleNextKey, true);
-            document.removeEventListener("keydown", handlePrevKey, true);
+            document.addEventListener("keydown", handleNextKey, true);
+            document.addEventListener("keydown", handlePrevKey, true);
+
+            return () => {
+                document.removeEventListener("keydown", handleNextKey, true);
+                document.removeEventListener("keydown", handlePrevKey, true);
+            };
         };
-    }, [filteredImageFiles]);
+    };
+
+    const useStringArrayEffect = (deps: any[]) => {
+        const ref = useRef<number[]>(deps);
+
+        if (!arrayEqual(deps, ref.current)) {
+            ref.current = deps;
+        }
+
+        useEffect(listenKeyDown(), [ref.current]);
+    };
+
+    useStringArrayEffect(filteredImageFiles);
 
     const handleNext = () => {
         if (imageIndex < filteredImageFiles.length - 1) {
