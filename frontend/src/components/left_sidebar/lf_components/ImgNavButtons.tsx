@@ -33,8 +33,8 @@ const ImgNavButtons = ({
         };
     };
 
-    const useStringArrayEffect = (deps: any[]) => {
-        const ref = useRef<number[]>(deps);
+    const useArrayEffect = (deps: any[]) => {
+        const ref = useRef<any[]>(deps);
 
         if (!arrayEqual(deps, ref.current)) {
             ref.current = deps;
@@ -43,7 +43,7 @@ const ImgNavButtons = ({
         useEffect(listenKeyDown(), [ref.current]);
     };
 
-    useStringArrayEffect(filteredImageFiles);
+    useArrayEffect(filteredImageFiles);
 
     const handleNext = () => {
         if (imageIndex < filteredImageFiles.length - 1) {
