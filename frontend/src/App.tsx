@@ -1,9 +1,13 @@
 import React from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 import LeftSidebar from "./components/left_sidebar/LeftSidebar";
 import MainPanel from "./components/main_panel/MainPanel";
 import RightSidebar from "./components/right_sidebar/RightSidebar";
+
+type labelsObj = {
+    labelNames: string[];
+    isLabelEditOpen: boolean[];
+};
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
@@ -38,9 +42,14 @@ const App: React.FC = () => {
         []
     );
 
-    const [labels, setLabels] = React.useState<string[]>(["cat", "dog"]);
+    const [labels, setLabels] = React.useState<labelsObj>({
+        labelNames: ["cats", "dogs"],
+        isLabelEditOpen: [false, false],
+    });
 
     const [selectedLabel, setSelectedLabel] = React.useState<string>("");
+
+    // console.log("selected label: ", selectedLabel);
 
     // console.log("rejectedFiles", rejectedFiles);
 

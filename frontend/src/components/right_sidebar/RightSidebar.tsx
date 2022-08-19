@@ -2,9 +2,14 @@ import React from "react";
 
 import LabelMaker from "./rf_components/LabelMaker";
 
+type labelsObj = {
+    labelNames: string[];
+    isLabelEditOpen: boolean[];
+};
+
 type Props = {
-    labels: string[];
-    setLabels: React.Dispatch<React.SetStateAction<string[]>>;
+    labels: labelsObj;
+    setLabels: React.Dispatch<React.SetStateAction<labelsObj>>;
     setSelectedLabel: React.Dispatch<React.SetStateAction<string>>;
 };
 
