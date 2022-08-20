@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tippy from "@tippyjs/react";
-import { useDeepCompareEffect } from "ahooks";
 import {
     PlusIcon,
     PencilIcon,
     TrashIcon,
     CheckIcon,
 } from "@heroicons/react/solid";
+import { faRotate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type labelsObj = {
     labelNames: string[];
@@ -24,28 +25,6 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     const [newLabelErrorMsg, setNewLabelErrorMsg] = useState<string>("");
     const [editedLabel, setEditedLabel] = useState<string>("");
     const [editedLabelErrorMsg, setEditedLabelErrorMsg] = useState<string>("");
-    // const [openLabelEdit, setOpenLabelEdit] = useState<boolean[]>([]);
-
-    useDeepCompareEffect(() => {
-        const radios = Array.from(document.getElementsByName("select-label"));
-        radios.forEach((radio) => {
-            radio.addEventListener(
-                "click",
-                () => handleSelectLabel(radio.id),
-                true
-            );
-        });
-
-        return () => {
-            radios.forEach((radio) => {
-                radio.removeEventListener(
-                    "click",
-                    () => handleSelectLabel(radio.id),
-                    true
-                );
-            });
-        };
-    }, [labels]);
 
     const handleSelectLabel = (selectedLabel: string) => {
         setSelectedLabel(selectedLabel);
@@ -89,26 +68,12 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
         }));
     };
 
-    const handleIsLabelEditOpen = (item: string) => {
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
-
-        updatedIsLabelEditOpen.forEach((e, index) => {
-            updatedIsLabelEditOpen[index] = false;
-        });
-        updatedIsLabelEditOpen.splice(labels.labelNames.indexOf(item), 1, true);
-        setLabels((prev) => ({
-            ...prev,
-            isLabelEditOpen: updatedIsLabelEditOpen,
-        }));
-        setEditedLabel((prev) => item);
-    };
-
-    const handleSubmitEditedLabel = (e: any, item: string, index: number) => {
+    const handleSubmitEditedLabel = (e: any, index: number) => {
         e.preventDefault();
         if (validateEditedLabel(editedLabel, index)) {
-            handleEditLabel(item, index);
+            handleEditLabel(index);
+            setEditedLabel((prev) => "");
+            setEditedLabelErrorMsg((prev) => "");
         }
     };
 
@@ -122,10 +87,18 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
             return false;
         }
 
+        if (
+            labels.labelNames.includes(trimmedLabel) &&
+            labels.labelNames[index] !== trimmedLabel
+        ) {
+            setEditedLabelErrorMsg((prev) => "Label already exists");
+            return false;
+        }
+
         return true;
     };
 
-    const handleEditLabel = (item: string, index: number) => {
+    const handleEditLabel = (index: number) => {
         const trimmedLabel: string = editedLabel.trim();
         const updatedLabels: string[] = structuredClone(labels.labelNames);
         updatedLabels.splice(index, 1, trimmedLabel);
@@ -141,20 +114,60 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
         }));
     };
 
-    const handleDeleteLabel = (item: string) => {
+    const handleOpenLabelEdit = (selectedLabelToEdit: string) => {
+        const updatedIsLabelEditOpen: boolean[] = structuredClone(
+            labels.isLabelEditOpen
+        );
+
+        updatedIsLabelEditOpen.forEach((e, index) => {
+            updatedIsLabelEditOpen[index] = false;
+        });
+        updatedIsLabelEditOpen.splice(
+            labels.labelNames.indexOf(selectedLabelToEdit),
+            1,
+            true
+        );
+        setLabels((prev) => ({
+            ...prev,
+            isLabelEditOpen: updatedIsLabelEditOpen,
+        }));
+        setEditedLabel((prev) => selectedLabelToEdit);
+        setEditedLabelErrorMsg((prev) => "");
+    };
+
+    const handleDeleteLabel = (labelToDelete: string) => {
         const updatedLabels: string[] = structuredClone(labels.labelNames);
-        updatedLabels.splice(labels.labelNames.indexOf(item), 1);
+        updatedLabels.splice(labels.labelNames.indexOf(labelToDelete), 1);
         setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
 
         const updatedIsLabelEditOpen: boolean[] = structuredClone(
             labels.isLabelEditOpen
         );
-        updatedIsLabelEditOpen.splice(labels.labelNames.indexOf(item), 1);
+        updatedIsLabelEditOpen.splice(
+            labels.labelNames.indexOf(labelToDelete),
+            1
+        );
         setLabels((prev) => ({
             ...prev,
             isLabelEditOpen: updatedIsLabelEditOpen,
         }));
     };
+
+    const handleCancelLabelEdit = () => {
+        const updatedIsLabelEditOpen: boolean[] = structuredClone(
+            labels.isLabelEditOpen
+        );
+
+        updatedIsLabelEditOpen.forEach((e, index) => {
+            updatedIsLabelEditOpen[index] = false;
+        });
+
+        setLabels((prev) => ({
+            ...prev,
+            isLabelEditOpen: updatedIsLabelEditOpen,
+        }));
+    };
+
     console.log("labels", labels);
     // console.log("newLabel", newLabel);
     console.log("editedLabel", editedLabel);
@@ -177,11 +190,7 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                         | flex justify-between items-center gap-x-2
                                         | bg-slate-100 m-1 p-2 rounded"
                                         onSubmit={(e) =>
-                                            handleSubmitEditedLabel(
-                                                e,
-                                                editedLabel,
-                                                index
-                                            )
+                                            handleSubmitEditedLabel(e, index)
                                         }
                                     >
                                         <div className="edit-label-name-container">
@@ -205,12 +214,16 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                                 <CheckIcon className="pencil-icon | w-6 text-white" />
                                             </button>
                                             <button
-                                                className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded"
+                                                className="cancel-edit-label-btn | bg-green-400 m-0.5 p-1 rounded"
                                                 onClick={() =>
-                                                    handleDeleteLabel(item)
+                                                    handleCancelLabelEdit()
                                                 }
                                             >
-                                                <TrashIcon className="pencil-icon | w-6 text-white" />
+                                                {/* <TrashIcon className="pencil-icon | w-6 text-white" /> */}
+                                                <FontAwesomeIcon
+                                                    icon={faRotate}
+                                                    className="rotate-icon | w-6 text-white"
+                                                />
                                             </button>
                                         </div>
                                     </form>
@@ -219,47 +232,59 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                     </span>
                                 </div>
                             ) : (
-                                <label
-                                    key={item}
-                                    className="label
-                                        | flex justify-between items-center gap-x-2
-                                        | bg-slate-100 m-1 p-2 rounded"
-                                    htmlFor={item}
+                                <button
+                                    name="dblclick-to-edit"
+                                    className="button-dblclick | w-full"
+                                    onDoubleClick={() =>
+                                        handleOpenLabelEdit(item)
+                                    }
                                 >
-                                    <div className="label-input-container | flex items-center gap-x-1">
-                                        <input
-                                            id={item}
-                                            type="radio"
-                                            name="select-label"
-                                            className="radio-button | rounded"
-                                            // onClick={handleSelectedLabel(item)}
-                                        />
-                                        <label
-                                            className="label-name | mb-0.5"
-                                            htmlFor={item}
-                                        >
-                                            {item}
-                                        </label>
-                                    </div>
-                                    <div className="label-options-container | flex">
-                                        <button
-                                            className="edit-label-btn | bg-slate-400 m-0.5 p-1 rounded"
-                                            onClick={() =>
-                                                handleIsLabelEditOpen(item)
-                                            }
-                                        >
-                                            <PencilIcon className="pencil-icon | w-6 text-white" />
-                                        </button>
-                                        <button
-                                            className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded"
-                                            onClick={() =>
-                                                handleDeleteLabel(item)
-                                            }
-                                        >
-                                            <TrashIcon className="pencil-icon | w-6 text-white" />
-                                        </button>
-                                    </div>
-                                </label>
+                                    <label
+                                        key={item}
+                                        // key="select-label-container"
+                                        className="label
+                                            | flex justify-between items-center gap-x-2
+                                            | bg-slate-100 m-1 p-2 rounded"
+                                        htmlFor={item}
+                                        // onDoubleClick=(() => handleOpenLabelEdit(item))
+                                    >
+                                        <div className="label-input-container | flex items-center gap-x-1">
+                                            <input
+                                                id={item}
+                                                type="radio"
+                                                name="select-label"
+                                                className="radio-button | rounded"
+                                                onChange={() =>
+                                                    handleSelectLabel(item)
+                                                }
+                                            />
+                                            <label
+                                                className="label-name | mb-0.5"
+                                                htmlFor={item}
+                                            >
+                                                {item}
+                                            </label>
+                                        </div>
+                                        <div className="label-options-container | flex">
+                                            <button
+                                                className="edit-label-btn | bg-slate-400 m-0.5 p-1 rounded"
+                                                onClick={() =>
+                                                    handleOpenLabelEdit(item)
+                                                }
+                                            >
+                                                <PencilIcon className="pencil-icon | w-6 text-white" />
+                                            </button>
+                                            <button
+                                                className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded"
+                                                onClick={() =>
+                                                    handleDeleteLabel(item)
+                                                }
+                                            >
+                                                <TrashIcon className="pencil-icon | w-6 text-white" />
+                                            </button>
+                                        </div>
+                                    </label>
+                                </button>
                             )}
                         </div>
                     ))}
