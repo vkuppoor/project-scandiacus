@@ -246,7 +246,6 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                             | flex justify-between items-center gap-x-2
                                             | bg-slate-100 m-1 p-2 rounded cursor-pointer"
                                         htmlFor={item}
-                                        // onDoubleClick=(() => handleOpenLabelEdit(item))
                                     >
                                         <div className="label-input-container | flex items-center gap-x-1">
                                             <input
