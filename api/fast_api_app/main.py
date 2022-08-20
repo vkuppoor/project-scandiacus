@@ -7,9 +7,10 @@ from . import crud, schemas
 
 app = FastAPI()
 
-@app.post("/write-to-output/{file_path}/{output_format}", tags = ["testing"],)
-def write_to_output(file_path: str, output_format: str, 
-    annotations: List[schemas.annotation]):
+@app.post("/write-to-output/{output_format}", tags = ["output_format"],
+    response_model = list)
+def write_to_output(output_format: str, 
+    output: List[schemas.output]):
     """Writes to a specified output type with all of the users annotations.
     
     Args:
@@ -22,7 +23,5 @@ def write_to_output(file_path: str, output_format: str,
     """
     output_format = output_format.upper()
     if(output_format == "YOLO"):
-        file_path = file_path.strip("\"")
-        return crud.write_to_output_YOLO(file_path = file_path, 
-            annotations = annotations)
+        return crud.write_to_output_YOLO(output = output)
 

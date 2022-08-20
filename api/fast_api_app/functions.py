@@ -1,10 +1,8 @@
 from PIL import Image
 
-def convert_coordinates_to_YOLO(file_path, coords):
-    img = Image.open(file_path)
-
-    img_width = img.width
-    img_height = img.height
+def convert_coordinates_to_YOLO(img_size, coords):
+    img_width = img_size["width"]
+    img_height = img_size["height"]
     x0, y0, x1, y1 = coords
     cx = (x0 + x1) / (2.0 * img_width)
     cy = (y0 + y1) / (2.0 * img_height)

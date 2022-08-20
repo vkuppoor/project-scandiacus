@@ -1,21 +1,31 @@
-from . import functions, labelmap
+from . import functions
+from io import StringIO 
+from zipfile import ZipFile
 
-def write_to_output_YOLO(file_path: str, annotations: list):
-    #doesn't work with a relative path
+def write_to_output_YOLO(output: dict) -> list:
+    labels = set()
     labelmap_text = ""
     output_text = ""
     i = 0
-    for annotation in annotations:
-        cx, cy, w, h = functions.convert_coordinates_to_YOLO(file_path, 
-            annotation.coord)
-        output_text += f"{i} {cx} {cy} {w} {h} \n"
-        labelmap_text += f"{i} {annotation.label} \n"
-        i += 1
+    with ZipFile("annotations", 'w') as zip:
+        output_text = ""
+        labelmap_text = ""
+        for img in output:
+            file_path = img.image_name
+            for annotation in img.annotations:
+                cx, cy, w, h = functions.convert_coordinates_to_YOLO(img.img_size, 
+                annotation.coord)
+                output_text += f"{i} {cx} {cy} {w} {h} \n"
+                if(annotation.label not in labels):
+                    labels.add(annotation.label)
+                    labelmap_text += f"{i} {annotation.label} \n"
+                i += 1
+            zip.writestr(img.image_name, output_text)
 
-    output_text = output_text.strip("\n") #gets rid of the trailing backlash
-    labelmap_text = labelmap_text.strip("\n")
-    labelmap.add_to_labelmap(file_path, labelmap_text)
+        zip.writestr("labelmap", labelmap_text)
+        zip.extractall("api/annotations")
 
-    with open(file_path + ".txt", 'w') as f:
-        f.write(output_text)
+    return [file_path, "labelmap"]
+
+
 
