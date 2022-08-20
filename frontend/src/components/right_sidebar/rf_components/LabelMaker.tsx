@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react";
 import { useDeepCompareEffect } from "ahooks";
-import { PlusIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import {
+    PlusIcon,
+    PencilIcon,
+    TrashIcon,
+    CheckIcon,
+} from "@heroicons/react/solid";
 
 type labelsObj = {
     labelNames: string[];
@@ -17,7 +22,8 @@ type Props = {
 const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     const [newLabel, setNewLabel] = useState<string>("");
     const [newLabelErrorMsg, setNewLabelErrorMsg] = useState<string>("");
-    const [isLabelSubmitted, setIsLabelSubmitted] = useState<boolean>(false);
+    const [editedLabel, setEditedLabel] = useState<string>("");
+    const [editedLabelErrorMsg, setEditedLabelErrorMsg] = useState<string>("");
     // const [openLabelEdit, setOpenLabelEdit] = useState<boolean[]>([]);
 
     useDeepCompareEffect(() => {
@@ -41,39 +47,34 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
         };
     }, [labels]);
 
-    useEffect(() => {
-        if (isLabelSubmitted === true) {
-            handleAddLabel(newLabel);
-            setIsLabelSubmitted((prev) => false);
-        }
-    }, [isLabelSubmitted]);
-
     const handleSelectLabel = (selectedLabel: string) => {
         setSelectedLabel(selectedLabel);
     };
 
-    const handleSubmitLabel = (e: any): void => {
+    const handleSubmitNewLabel = (e: any): void => {
         e.preventDefault();
-        if (validateNewLabel(newLabel) === true) {
-            setIsLabelSubmitted((prev) => true);
+        if (validateNewLabel(newLabel)) {
+            handleAddLabel();
+            setNewLabel((prev) => "");
+            setNewLabelErrorMsg((prev) => "");
         }
     };
 
     const validateNewLabel = (newLabelToValidate: string): boolean => {
         const trimmedLabel = newLabelToValidate.trim();
         if (trimmedLabel.length === 0) {
-            setNewLabelErrorMsg("Field is empty");
+            setNewLabelErrorMsg((prev) => "Field is empty");
             return false;
         }
 
         if (labels.labelNames.includes(trimmedLabel)) {
-            setNewLabelErrorMsg("Label already exists");
+            setNewLabelErrorMsg((prev) => "Label already exists");
             return false;
         }
         return true;
     };
 
-    const handleAddLabel = (newLabel: string) => {
+    const handleAddLabel = () => {
         const trimmedLabel: string = newLabel.trim();
         const updatedLabels: string[] = structuredClone(labels.labelNames);
         updatedLabels.push(trimmedLabel);
@@ -92,65 +93,182 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
         const updatedIsLabelEditOpen: boolean[] = structuredClone(
             labels.isLabelEditOpen
         );
+
+        updatedIsLabelEditOpen.forEach((e, index) => {
+            updatedIsLabelEditOpen[index] = false;
+        });
         updatedIsLabelEditOpen.splice(labels.labelNames.indexOf(item), 1, true);
         setLabels((prev) => ({
             ...prev,
             isLabelEditOpen: updatedIsLabelEditOpen,
         }));
+        setEditedLabel((prev) => item);
     };
-    console.log("check open", labels);
 
+    const handleSubmitEditedLabel = (e: any, item: string, index: number) => {
+        e.preventDefault();
+        if (validateEditedLabel(editedLabel, index)) {
+            handleEditLabel(item, index);
+        }
+    };
+
+    const validateEditedLabel = (
+        editedLabelToValidate: string,
+        index: number
+    ): boolean => {
+        const trimmedLabel = editedLabelToValidate.trim();
+        if (trimmedLabel.length === 0) {
+            setEditedLabelErrorMsg((prev) => "Field is empty");
+            return false;
+        }
+
+        return true;
+    };
+
+    const handleEditLabel = (item: string, index: number) => {
+        const trimmedLabel: string = editedLabel.trim();
+        const updatedLabels: string[] = structuredClone(labels.labelNames);
+        updatedLabels.splice(index, 1, trimmedLabel);
+        setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
+
+        const updatedIsLabelEditOpen: boolean[] = structuredClone(
+            labels.isLabelEditOpen
+        );
+        updatedIsLabelEditOpen.splice(index, 1, false);
+        setLabels((prev) => ({
+            ...prev,
+            isLabelEditOpen: updatedIsLabelEditOpen,
+        }));
+    };
+
+    const handleDeleteLabel = (item: string) => {
+        const updatedLabels: string[] = structuredClone(labels.labelNames);
+        updatedLabels.splice(labels.labelNames.indexOf(item), 1);
+        setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
+
+        const updatedIsLabelEditOpen: boolean[] = structuredClone(
+            labels.isLabelEditOpen
+        );
+        updatedIsLabelEditOpen.splice(labels.labelNames.indexOf(item), 1);
+        setLabels((prev) => ({
+            ...prev,
+            isLabelEditOpen: updatedIsLabelEditOpen,
+        }));
+    };
     console.log("labels", labels);
     // console.log("newLabel", newLabel);
-    console.log("newLabelErrorMsg", newLabelErrorMsg);
+    console.log("editedLabel", editedLabel);
+    // console.log("newLabelErrorMsg", newLabelErrorMsg);
 
     return (
         <div className="label-maker | flex flex-col items-center | bg-white w-4/5 m-2 p-2 rounded">
             <div className="lm-title | text-center">Labels</div>
             {labels.labelNames.length !== 0 ? (
                 <div className="label-list | w-4/5">
-                    {labels.labelNames.map((item: string) => (
-                        <label
-                            key={item}
-                            className="label
-                                | flex justify-between items-center
-                                | bg-slate-100 m-1 p-2 rounded"
-                            htmlFor={item}
-                        >
-                            <div className="label-input-container | flex items-center gap-x-1">
-                                <input
-                                    id={item}
-                                    type="radio"
-                                    name="select-label"
-                                    className="radio-button | rounded"
-                                    // onClick={handleSelectedLabel(item)}
-                                />
+                    {labels.labelNames.map((item: string, index: number) => (
+                        <div className="label-container">
+                            {labels.isLabelEditOpen[
+                                labels.labelNames.indexOf(item)
+                            ] ? (
+                                <div className="edit-label-container">
+                                    <form
+                                        key={item}
+                                        className="label-edit
+                                        | flex justify-between items-center gap-x-2
+                                        | bg-slate-100 m-1 p-2 rounded"
+                                        onSubmit={(e) =>
+                                            handleSubmitEditedLabel(
+                                                e,
+                                                editedLabel,
+                                                index
+                                            )
+                                        }
+                                    >
+                                        <div className="edit-label-name-container">
+                                            <input
+                                                type="text"
+                                                className="label-input | m-1 p-2 w-full rounded"
+                                                // placeholder={item}
+                                                value={editedLabel}
+                                                onChange={(e) =>
+                                                    setEditedLabel(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                        <div className="label-options-container | flex">
+                                            <button
+                                                className="submit-edited-label-btn | bg-slate-400 m-0.5 p-1 rounded"
+                                                type="submit"
+                                            >
+                                                <CheckIcon className="pencil-icon | w-6 text-white" />
+                                            </button>
+                                            <button
+                                                className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded"
+                                                onClick={() =>
+                                                    handleDeleteLabel(item)
+                                                }
+                                            >
+                                                <TrashIcon className="pencil-icon | w-6 text-white" />
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <span className="new-label-error-ms | text-red-400">
+                                        {editedLabelErrorMsg}
+                                    </span>
+                                </div>
+                            ) : (
                                 <label
-                                    className="label-name | mb-0.5"
+                                    key={item}
+                                    className="label
+                                        | flex justify-between items-center gap-x-2
+                                        | bg-slate-100 m-1 p-2 rounded"
                                     htmlFor={item}
                                 >
-                                    {item}
+                                    <div className="label-input-container | flex items-center gap-x-1">
+                                        <input
+                                            id={item}
+                                            type="radio"
+                                            name="select-label"
+                                            className="radio-button | rounded"
+                                            // onClick={handleSelectedLabel(item)}
+                                        />
+                                        <label
+                                            className="label-name | mb-0.5"
+                                            htmlFor={item}
+                                        >
+                                            {item}
+                                        </label>
+                                    </div>
+                                    <div className="label-options-container | flex">
+                                        <button
+                                            className="edit-label-btn | bg-slate-400 m-0.5 p-1 rounded"
+                                            onClick={() =>
+                                                handleIsLabelEditOpen(item)
+                                            }
+                                        >
+                                            <PencilIcon className="pencil-icon | w-6 text-white" />
+                                        </button>
+                                        <button
+                                            className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded"
+                                            onClick={() =>
+                                                handleDeleteLabel(item)
+                                            }
+                                        >
+                                            <TrashIcon className="pencil-icon | w-6 text-white" />
+                                        </button>
+                                    </div>
                                 </label>
-                            </div>
-                            <div className="label-options-container">
-                                <button
-                                    className="edit-label-btn | bg-slate-400 m-0.5 p-1 rounded"
-                                    onClick={() => handleIsLabelEditOpen(item)}
-                                >
-                                    <PencilIcon className="pencil-icon | w-6 text-white" />
-                                </button>
-                                <button className="delete-label-btn | bg-red-400 m-0.5 p-1 rounded">
-                                    <TrashIcon className="pencil-icon | w-6 text-white" />
-                                </button>
-                            </div>
-                        </label>
+                            )}
+                        </div>
                     ))}
                 </div>
             ) : null}
             <form
                 id="add-label-button-container"
                 className="add-label-button-container | flex justify-center | w-4/5"
-                onSubmit={handleSubmitLabel}
+                onSubmit={handleSubmitNewLabel}
             >
                 <Tippy
                     content={
@@ -171,11 +289,15 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                 </Tippy>
                 <input
                     type="text"
-                    className="label-input | m-1 p-2"
+                    className="label-input | m-1 p-2 border-2 border-slate-400 rounded"
                     placeholder="Enter label here"
+                    value={newLabel}
                     onChange={(e) => setNewLabel(e.target.value)}
                 />
             </form>
+            <span className="new-label-error-ms | text-red-400">
+                {newLabelErrorMsg}
+            </span>
         </div>
     );
 };
