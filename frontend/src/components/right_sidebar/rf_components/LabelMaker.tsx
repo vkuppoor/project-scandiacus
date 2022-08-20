@@ -174,10 +174,10 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     // console.log("newLabelErrorMsg", newLabelErrorMsg);
 
     return (
-        <div className="label-maker | flex flex-col items-center | bg-white w-4/5 m-2 p-2 rounded">
+        <div className="label-maker | flex flex-col items-center | bg-white w-4/5 max-h-80 m-2 p-2 rounded">
             <div className="lm-title | text-center">Labels</div>
             {labels.labelNames.length !== 0 ? (
-                <div className="label-list | w-4/5">
+                <div className="label-list | w-full overflow-y-scroll">
                     {labels.labelNames.map((item: string, index: number) => (
                         <div className="label-container">
                             {labels.isLabelEditOpen[
@@ -244,7 +244,7 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                         // key="select-label-container"
                                         className="label
                                             | flex justify-between items-center gap-x-2
-                                            | bg-slate-100 m-1 p-2 rounded"
+                                            | bg-slate-100 m-1 p-2 rounded cursor-pointer"
                                         htmlFor={item}
                                         // onDoubleClick=(() => handleOpenLabelEdit(item))
                                     >

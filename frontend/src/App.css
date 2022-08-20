@@ -568,6 +568,18 @@ video {
     height: 5rem;
 }
 
+.max-h-48 {
+    max-height: 12rem;
+}
+
+.max-h-96 {
+    max-height: 24rem;
+}
+
+.max-h-80 {
+    max-height: 20rem;
+}
+
 .w-full {
     width: 100%;
 }
@@ -598,6 +610,10 @@ video {
 
 .grow {
     flex-grow: 1;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .grid-cols-12 {
@@ -640,8 +656,20 @@ video {
     column-gap: 0.5rem;
 }
 
+.overflow-auto {
+    overflow: auto;
+}
+
 .overflow-scroll {
     overflow: scroll;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
 }
 
 .rounded {
