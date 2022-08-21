@@ -11,7 +11,6 @@ type labelsObj = {
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
-    // console.log("files", files);
 
     const [imageFileTypes, setImageFileTypes] = React.useState<string[]>([
         ".jpeg",

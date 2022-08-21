@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useScrollIndicator } from "../../custom_hooks/useScrollIndicator";
 import Tippy from "@tippyjs/react";
 import {
     PlusIcon,
@@ -25,6 +26,7 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     const [newLabelErrorMsg, setNewLabelErrorMsg] = useState<string>("");
     const [editedLabel, setEditedLabel] = useState<string>("");
     const [editedLabelErrorMsg, setEditedLabelErrorMsg] = useState<string>("");
+    const { boxShadow, onScrollHandler } = useScrollIndicator();
 
     const handleSelectLabel = (selectedLabel: string) => {
         setSelectedLabel(selectedLabel);
@@ -55,13 +57,13 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
 
     const handleAddLabel = () => {
         const trimmedLabel: string = newLabel.trim();
-        const updatedLabels: string[] = structuredClone(labels.labelNames);
+        const updatedLabels: string[] = labels.labelNames.slice(0);
         updatedLabels.push(trimmedLabel);
         setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
 
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
+        const updatedIsLabelEditOpen: boolean[] =
+            labels.isLabelEditOpen.slice(0);
+        updatedIsLabelEditOpen.push(false);
         setLabels((prev) => ({
             ...prev,
             isLabelEditOpen: updatedIsLabelEditOpen,
@@ -100,13 +102,12 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
 
     const handleEditLabel = (index: number) => {
         const trimmedLabel: string = editedLabel.trim();
-        const updatedLabels: string[] = structuredClone(labels.labelNames);
+        const updatedLabels: string[] = labels.labelNames.slice(0);
         updatedLabels.splice(index, 1, trimmedLabel);
         setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
 
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
+        const updatedIsLabelEditOpen: boolean[] =
+            labels.isLabelEditOpen.slice(0);
         updatedIsLabelEditOpen.splice(index, 1, false);
         setLabels((prev) => ({
             ...prev,
@@ -115,9 +116,8 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     };
 
     const handleOpenLabelEdit = (selectedLabelToEdit: string) => {
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
+        const updatedIsLabelEditOpen: boolean[] =
+            labels.isLabelEditOpen.slice(0);
 
         updatedIsLabelEditOpen.forEach((e, index) => {
             updatedIsLabelEditOpen[index] = false;
@@ -136,13 +136,12 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     };
 
     const handleDeleteLabel = (labelToDelete: string) => {
-        const updatedLabels: string[] = structuredClone(labels.labelNames);
+        const updatedLabels: string[] = labels.labelNames.slice(0);
         updatedLabels.splice(labels.labelNames.indexOf(labelToDelete), 1);
         setLabels((prev) => ({ ...prev, labelNames: updatedLabels }));
 
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
+        const updatedIsLabelEditOpen: boolean[] =
+            labels.isLabelEditOpen.slice(0);
         updatedIsLabelEditOpen.splice(
             labels.labelNames.indexOf(labelToDelete),
             1
@@ -154,9 +153,8 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
     };
 
     const handleCancelLabelEdit = () => {
-        const updatedIsLabelEditOpen: boolean[] = structuredClone(
-            labels.isLabelEditOpen
-        );
+        const updatedIsLabelEditOpen: boolean[] =
+            labels.isLabelEditOpen.slice(0);
 
         updatedIsLabelEditOpen.forEach((e, index) => {
             updatedIsLabelEditOpen[index] = false;
@@ -168,27 +166,31 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
         }));
     };
 
-    console.log("labels", labels);
+    // console.log("labels", labels);
     // console.log("newLabel", newLabel);
-    console.log("editedLabel", editedLabel);
+    // console.log("editedLabel", editedLabel);
     // console.log("newLabelErrorMsg", newLabelErrorMsg);
 
     return (
-        <div className="label-maker | flex flex-col items-center | bg-white w-4/5 max-h-80 m-2 p-2 rounded">
+        <div className="label-maker | flex flex-col items-center | bg-white w-4/5 max-h-96 m-2 p-2 rounded">
             <div className="lm-title | text-center">Labels</div>
             {labels.labelNames.length !== 0 ? (
-                <div className="label-list | w-full overflow-y-scroll">
+                <div
+                    onScroll={onScrollHandler}
+                    className={`label-list | w-full overflow-y-scroll ${
+                        labels.labelNames.length > 5 ? boxShadow : ""
+                    }`}
+                >
                     {labels.labelNames.map((item: string, index: number) => (
-                        <div className="label-container">
+                        <div key={item} className="label-container">
                             {labels.isLabelEditOpen[
                                 labels.labelNames.indexOf(item)
                             ] ? (
                                 <div className="edit-label-container">
                                     <form
-                                        key={item}
                                         className="label-edit
-                                        | flex justify-between items-center gap-x-2
-                                        | bg-slate-100 m-1 p-2 rounded"
+                                                | flex justify-between items-center gap-x-2
+                                                | bg-slate-100 m-1 p-2 rounded"
                                         onSubmit={(e) =>
                                             handleSubmitEditedLabel(e, index)
                                         }
@@ -197,7 +199,6 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                             <input
                                                 type="text"
                                                 className="label-input | m-1 p-2 w-full rounded"
-                                                // placeholder={item}
                                                 value={editedLabel}
                                                 onChange={(e) =>
                                                     setEditedLabel(
@@ -241,10 +242,9 @@ const LabelMaker = ({ labels, setLabels, setSelectedLabel }: Props) => {
                                 >
                                     <label
                                         key={item}
-                                        // key="select-label-container"
                                         className="label
-                                            | flex justify-between items-center gap-x-2
-                                            | bg-slate-100 m-1 p-2 rounded cursor-pointer"
+                                                    | flex justify-between items-center gap-x-2
+                                                    | bg-slate-100 m-1 p-2 rounded cursor-pointer"
                                         htmlFor={item}
                                     >
                                         <div className="label-input-container | flex items-center gap-x-1">
