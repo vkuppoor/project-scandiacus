@@ -1,12 +1,16 @@
 import React from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 import LeftSidebar from "./components/left_sidebar/LeftSidebar";
 import MainPanel from "./components/main_panel/MainPanel";
+import RightSidebar from "./components/right_sidebar/RightSidebar";
+
+type labelsObj = {
+    labelNames: string[];
+    isLabelEditOpen: boolean[];
+};
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
-    // console.log("files", files);
 
     const [imageFileTypes, setImageFileTypes] = React.useState<string[]>([
         ".jpeg",
@@ -36,6 +40,15 @@ const App: React.FC = () => {
     const [filteredOutputFiles, setFilteredOutputFiles] = React.useState<any>(
         []
     );
+
+    const [labels, setLabels] = React.useState<labelsObj>({
+        labelNames: ["cats", "dogs"],
+        isLabelEditOpen: [false, false],
+    });
+
+    const [selectedLabel, setSelectedLabel] = React.useState<string>("");
+
+    // console.log("selected label: ", selectedLabel);
 
     // console.log("rejectedFiles", rejectedFiles);
 
@@ -76,7 +89,13 @@ const App: React.FC = () => {
                     imageIndex={imageIndex}
                 />
             </div>
-            <div className="sidebar | col-span-3"></div>
+            <div className="sidebar | col-span-3">
+                <RightSidebar
+                    labels={labels}
+                    setLabels={setLabels}
+                    setSelectedLabel={setSelectedLabel}
+                />
+            </div>
         </div>
     );
 };

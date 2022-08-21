@@ -4,6 +4,6 @@
 
 @import "tailwindcss/utilities";
 
-@import "./core/_colors.css";
+@import "./core/colors.css";
 
-@import "./elements/_frame.css";
+@import "./elements/frame.css";
