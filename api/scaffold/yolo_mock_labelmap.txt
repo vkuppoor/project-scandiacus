@@ -1,0 +1,9 @@
+<<<<<<< HEAD:scaffold/yolo_mock_labelmap.txt
+0 car
+1 person
+2 tree
+=======
+0 car
+1 person
+2 tree
+>>>>>>> 626736cf4ccecc4457674a0860a65cbba0548767:api/scaffold/yolo_mock_labelmap.txt
