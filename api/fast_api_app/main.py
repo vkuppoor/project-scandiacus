@@ -37,7 +37,9 @@ def test() -> dict:
 
 
 @app.post("/write-to-output/{file_path}/{output_format}", tags=["Output"])
-async def write_to_output(file_path: Path, output_format: OutputFormats, image_info: List[schemas.ImageInfo]):
+async def write_to_output(
+    output_format: OutputFormats, data: schemas.DatasetInfo
+):
 
     """Writes to a specified output type with all of the users annotations.
 
@@ -52,4 +54,4 @@ async def write_to_output(file_path: Path, output_format: OutputFormats, image_i
     """
 
     if output_format == OutputFormats.createML:
-        crud.write_to_output_createML(file_path=file_path, image_info=image_info)
+        return crud.write_to_output_createML(data=data)

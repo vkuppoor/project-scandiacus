@@ -4,10 +4,10 @@ from . import schemas, encoders
 import json
 
 
-def write_to_output_createML(file_path: Path, image_info: list[schemas.ImageInfo]):
+def write_to_output_createML(data: schemas.DatasetInfo) -> Path:
 
     output = []
-    for images in image_info:
+    for images in data.dataset:
         output.append(
             {
                 "image": images.image_name,
@@ -26,6 +26,8 @@ def write_to_output_createML(file_path: Path, image_info: list[schemas.ImageInfo
             }
         )
 
-    file_path = file_path.joinpath("createML.json")
+    file_path = Path.cwd().joinpath("api/createML.json")
     with file_path.open("w", encoding="utf-8") as f:
         json.dump(output, f, cls=encoders.DecimalEncoder, indent=4)
+
+    return file_path.relative_to(Path.cwd())
