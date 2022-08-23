@@ -1,5 +1,3 @@
-from PIL import Image
-
 def convert_coordinates_to_YOLO(img_size, coords):
     img_width = img_size["width"]
     img_height = img_size["height"]

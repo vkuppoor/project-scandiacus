@@ -1,8 +1,4 @@
-from typing import List
-
 from fastapi import Depends, FastAPI
-
-
 from . import crud, schemas
 
 app = FastAPI()
