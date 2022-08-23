@@ -2,7 +2,7 @@ from . import functions
 from io import StringIO 
 from zipfile import ZipFile
 
-def write_to_output_YOLO(output: dict) -> list:
+def write_to_output_YOLO(data: dict) -> list:
     labels = set()
     labelmap_text = ""
     output_text = ""
@@ -10,7 +10,7 @@ def write_to_output_YOLO(output: dict) -> list:
     with ZipFile("annotations", 'w') as zip:
         output_text = ""
         labelmap_text = ""
-        for img in output:
+        for img in data:
             file_path = img.image_name
             for annotation in img.annotations:
                 cx, cy, w, h = functions.convert_coordinates_to_YOLO(img.img_size, 

@@ -10,7 +10,7 @@ app = FastAPI()
 @app.post("/write-to-output/{output_format}", tags = ["output_format"],
     response_model = list)
 def write_to_output(output_format: str, 
-    output: List[schemas.output]):
+    data: schemas.data):
     """Writes to a specified output type with all of the users annotations.
     
     Args:
@@ -23,5 +23,5 @@ def write_to_output(output_format: str,
     """
     output_format = output_format.upper()
     if(output_format == "YOLO"):
-        return crud.write_to_output_YOLO(output = output)
+        return crud.write_to_output_YOLO(data = data)
 

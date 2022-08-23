@@ -6,8 +6,14 @@ class annotation(BaseModel):
     coord: Tuple[int, int, int, int]
     label: str
 
-class output(BaseModel):
+class data(BaseModel):
     image_name: str
     img_size: dict
     annotations: List[annotation]
+    
+class data(BaseModel):
+    dataset_info: dict
+    lincenses: list
+    dataset: List[data]
+    
 

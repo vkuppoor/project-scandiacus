@@ -1,0 +1,30 @@
+{
+    "dataset_info": {
+        "year": 2022,
+        "version": "20.1.0",
+        "description": "Cool data",
+        "contributer": "Ryan",
+        "url": "https.www.no.com",
+        "data_created": "2011-08-12T20:17:46.384"
+    },
+    "licenses":[ 
+        {
+        "url": "Https.www.cool.com",
+        "name": "Google"
+        }
+    ],
+    "dataset": [
+        "image_name": "cat.0.png",
+        "img_size": {"height": 123, "width": 200},
+        "annotations":[
+            {
+                "coord": [23, 23, 24, 25] ,
+                "label": "car"
+            },
+            {
+                "coord": [25, 25, 26, 26],
+                "label": "person"
+            }
+        ]
+    ]
+}
