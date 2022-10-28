@@ -1,6 +1,7 @@
 import React from "react";
 
 import LabelMaker from "./rf_components/LabelMaker";
+import ExportButton from "./rf_components/ExportButton";
 
 type labelsObj = {
     labelNames: string[];
@@ -23,7 +24,9 @@ const RightSidebar = ({ labels, setLabels, setSelectedLabel }: Props) => {
                     setSelectedLabel={setSelectedLabel}
                 />
             </div>
-            <div className="bottom | flex flex-col justify-end items-center | h-full"></div>
+            <div className="bottom | flex flex-col justify-end items-center | h-full">
+                <ExportButton />
+            </div>
         </div>
     );
 };
