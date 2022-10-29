@@ -1,5 +1,5 @@
 import React from "react";
-
+import Canvas from "./mp_components/Canvas";
 interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
@@ -14,23 +14,14 @@ const MainPanel = ({
     filteredImageFiles,
     imageIndex,
 }: Props) => {
-    const imageFromIndex = filteredImageFiles[imageIndex];
+    const imageAtIndex = filteredImageFiles[imageIndex];
 
     return (
         <div className="main-panel | flex justify-center items-center | w-full h-screen">
-            {/* <div className="images | m-1"></div> */}
-            {filteredImageFiles.length !== 0 ? (
-                <div
-                    key={imageFromIndex.name}
-                    className="image-container |  flex justify-center items-center | w-4/5 h-4/5"
-                >
-                    <img
-                        src={imageFromIndex.preview}
-                        className="image | my-1 h-full w-auto object-contain"
-                        alt=""
-                    />
-                </div>
-            ) : null}
+            <Canvas
+                filteredImageFiles={filteredImageFiles}
+                imageIndex={imageIndex}
+            />
         </div>
     );
 };
