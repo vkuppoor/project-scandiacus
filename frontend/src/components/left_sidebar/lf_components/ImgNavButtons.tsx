@@ -40,7 +40,6 @@ const ImgNavButtons = ({
 
     const handleNextKey = (event: any) => {
         if (event.code === "ArrowRight") {
-            console.log("Next Key Code", event.code);
             handleNext();
         }
     };
@@ -56,8 +55,6 @@ const ImgNavButtons = ({
             handlePrev();
         }
     };
-
-    console.log("imageIndex", imageIndex);
 
     return (
         <div className="nav-button-container | flex gap-0 | bg-white h-20 w-full">
