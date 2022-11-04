@@ -479,6 +479,10 @@ video {
 
 /* *************************************************************************************************/
 
+.absolute {
+    position: absolute;
+}
+
 .z-0 {
     z-index: 0;
 }
@@ -495,12 +499,12 @@ video {
     grid-column: span 3 / span 3;
 }
 
-.m-1 {
-    margin: 0.25rem;
-}
-
 .m-2 {
     margin: 0.5rem;
+}
+
+.m-1 {
+    margin: 0.25rem;
 }
 
 .m-0\.5 {
@@ -540,12 +544,12 @@ video {
     height: 100vh;
 }
 
-.h-full {
-    height: 100%;
-}
-
 .h-4\/5 {
     height: 80%;
+}
+
+.h-full {
+    height: 100%;
 }
 
 .h-56 {
@@ -568,20 +572,16 @@ video {
     height: 5rem;
 }
 
-.h-auto {
-    height: auto;
-}
-
 .max-h-96 {
     max-height: 24rem;
 }
 
-.w-full {
-    width: 100%;
-}
-
 .w-4\/5 {
     width: 80%;
+}
+
+.w-full {
+    width: 100%;
 }
 
 .w-auto {
@@ -598,6 +598,10 @@ video {
 
 .w-10 {
     width: 2.5rem;
+}
+
+.w-screen {
+    width: 100vw;
 }
 
 .flex-1 {
@@ -736,6 +740,10 @@ video {
 
 .object-contain {
     object-fit: contain;
+}
+
+.object-fill {
+    object-fit: fill;
 }
 
 .p-2 {

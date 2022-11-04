@@ -2,7 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDeepCompareEffect } from "ahooks";
 import Canvas from "../../custom_components/Canvas";
 import { FileWithPreview } from "../../types/types";
-import { Stage, Layer, Image } from "react-konva";
+import { Stage, Layer, Group, Image, Rect } from "react-konva";
+import { Html } from "react-konva-utils";
+import { SignatureHelpTriggerCharacter } from "typescript";
+
+interface Annotation {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    key: number;
+}
+
 interface Props {
     files: any;
     setFiles: React.Dispatch<React.SetStateAction<any>>;
@@ -23,14 +34,59 @@ const MainPanel = ({
     const fileAtIndex: FileWithPreview = filteredImageFiles[imageIndex];
 
     // Link to draw annotations: https://codesandbox.io/s/react-konva-create-draw-rect-fw9hw?file=/src/index.js:160-269
-    const [annotations, setAnnotations] = useState([]);
-    const [newAnnotation, setNewAnnotation] = useState([]);
+    const [annotations, setAnnotations] = useState<Annotation[]>([]);
+    const [newAnnotation, setNewAnnotation] = useState<Annotation[]>([]);
 
-    useDeepCompareEffect(() => {
+    const handleMouseDown = (event: any) => {
+        if (newAnnotation.length === 0) {
+            const { x, y } = event.target.getStage().getPointerPosition();
+            setNewAnnotation([{ x, y, width: 0, height: 0, key: 0 }]);
+        }
+    };
+
+    const handleMouseUp = (event: any) => {
+        if (newAnnotation.length === 1) {
+            const sx = newAnnotation[0].x;
+            const sy = newAnnotation[0].y;
+            const { x, y } = event.target.getStage().getPointerPosition();
+            const annotationToAdd: Annotation = {
+                x: sx,
+                y: sy,
+                width: x - sx,
+                height: y - sy,
+                key: annotations.length + 1,
+            };
+            annotations.push(annotationToAdd);
+            setNewAnnotation([]);
+            setAnnotations(annotations);
+        }
+    };
+
+    const handleMouseMove = (event: any) => {
+        if (newAnnotation.length === 1) {
+            const sx = newAnnotation[0].x;
+            const sy = newAnnotation[0].y;
+            const { x, y } = event.target.getStage().getPointerPosition();
+            setNewAnnotation([
+                {
+                    x: sx,
+                    y: sy,
+                    width: x - sx,
+                    height: y - sy,
+                    key: 0,
+                },
+            ]);
+        }
+    };
+
+    const annotationsToDraw = [...annotations, ...newAnnotation];
+
+    useEffect(() => {
         if (filteredImageFiles.length !== 0) {
             loadImage();
         }
-    }, [imageIndex, filteredImageFiles]);
+    }, [imageIndex, filteredImageFiles.length]);
+
     const loadImage = () => {
         const image = new window.Image();
         image.src = fileAtIndex.preview;
@@ -78,11 +134,36 @@ const MainPanel = ({
                 //         alt=""
                 //     />
                 // </div>
-                <Stage width={imageWidth} height={imageHeight}>
-                    <Layer>
-                        <Image image={image} />
-                    </Layer>
-                </Stage>
+                <div className="canvas-container | flex justify-center items-center">
+                    <Stage
+                        width={imageWidth}
+                        height={imageHeight}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                        onMouseMove={handleMouseMove}
+                    >
+                        <Layer>
+                            <Image image={image} />
+                            {annotationsToDraw.map((value) => {
+                                return (
+                                    <Group x={value.x} y={value.y}>
+                                        <Html>
+                                            <button>Delete</button>
+                                        </Html>
+                                        <Rect
+                                            x={0}
+                                            y={0}
+                                            width={value.width}
+                                            height={value.height}
+                                            fill="transparent"
+                                            stroke="black"
+                                        />
+                                    </Group>
+                                );
+                            })}
+                        </Layer>
+                    </Stage>
+                </div>
             ) : null}
             {/* <Canvas
                 draw={handleDrawCanvas}
