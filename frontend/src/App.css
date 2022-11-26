@@ -479,10 +479,6 @@ video {
 
 /* *************************************************************************************************/
 
-.absolute {
-    position: absolute;
-}
-
 .z-0 {
     z-index: 0;
 }
@@ -598,10 +594,6 @@ video {
 
 .w-10 {
     width: 2.5rem;
-}
-
-.w-screen {
-    width: 100vw;
 }
 
 .flex-1 {
@@ -740,10 +732,6 @@ video {
 
 .object-contain {
     object-fit: contain;
-}
-
-.object-fill {
-    object-fit: fill;
 }
 
 .p-2 {

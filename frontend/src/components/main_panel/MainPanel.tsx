@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDeepCompareEffect } from "ahooks";
+import _ from "lodash";
 import Canvas from "../../custom_components/Canvas";
 import { FileWithPreview } from "../../types/types";
 import { Stage, Layer, Group, Image, Rect } from "react-konva";
 import { Html } from "react-konva-utils";
-import { SignatureHelpTriggerCharacter } from "typescript";
 
 interface Annotation {
     x: number;
@@ -12,6 +12,11 @@ interface Annotation {
     width: number;
     height: number;
     key: number;
+}
+
+interface AnnotationsForImage {
+    annotationList: Annotation[];
+    imageName: string;
 }
 
 interface Props {
@@ -34,7 +39,7 @@ const MainPanel = ({
     const fileAtIndex: FileWithPreview = filteredImageFiles[imageIndex];
 
     // Link to draw annotations: https://codesandbox.io/s/react-konva-create-draw-rect-fw9hw?file=/src/index.js:160-269
-    const [annotations, setAnnotations] = useState<Annotation[]>([]);
+    const [annotations, setAnnotations] = useState<AnnotationsForImage[]>([]);
     const [newAnnotation, setNewAnnotation] = useState<Annotation[]>([]);
 
     const handleMouseDown = (event: any) => {
@@ -56,11 +61,30 @@ const MainPanel = ({
                 height: y - sy,
                 key: annotations.length + 1,
             };
-            annotations.push(annotationToAdd);
+
+            // let annotationList: Annotation[] = [];
+            // if (annotations[imageIndex]) {
+            //     annotationList = [...annotations[imageIndex].annotationList];
+            //     annotationList.push(annotationToAdd);
+            // } else {
+            //     annotationList.push(annotationToAdd);
+            // }
+
+            let imagesLabels: AnnotationsForImage[] = _.cloneDeep(annotations);
+            // let imagesLabels: AnnotationsForImage[] = [...annotations];
+            imagesLabels[imageIndex].annotationList.push(annotationToAdd);
+
+            // if (fileAtIndex != null) {
+            //     imagesLabels[imageIndex].imageName = fileAtIndex.name;
+            // } else {
+            //     imagesLabels[imageIndex].imageName = "";
+            // }
+            // annotations.push(annotationToAdd);
             setNewAnnotation([]);
-            setAnnotations(annotations);
+            setAnnotations(imagesLabels);
         }
     };
+    console.log("anno list", annotations);
 
     const handleMouseMove = (event: any) => {
         if (newAnnotation.length === 1) {
@@ -79,13 +103,17 @@ const MainPanel = ({
         }
     };
 
-    const annotationsToDraw = [...annotations, ...newAnnotation];
-
-    useEffect(() => {
-        if (filteredImageFiles.length !== 0) {
-            loadImage();
-        }
-    }, [imageIndex, filteredImageFiles.length]);
+    useDeepCompareEffect(() => {
+        let imagesLabels: AnnotationsForImage[] = [];
+        filteredImageFiles.forEach((element: any) => {
+            imagesLabels.push({
+                annotationList: [],
+                imageName: element.name,
+            });
+        });
+        console.log("imagesLabels", imagesLabels);
+        setAnnotations(imagesLabels);
+    }, [filteredImageFiles]);
 
     const loadImage = () => {
         const image = new window.Image();
@@ -94,6 +122,23 @@ const MainPanel = ({
             setImage(image);
         };
     };
+    useDeepCompareEffect(() => {
+        if (filteredImageFiles.length !== 0) {
+            loadImage();
+        }
+    }, [imageIndex, filteredImageFiles]);
+
+    let annotationsToDraw: any[] = [];
+    if (fileAtIndex != null && annotations.length != 0) {
+        // console.log("anno listlsdsa", annotations[imageIndex].annotationList);
+        annotationsToDraw = [
+            ...annotations[imageIndex].annotationList,
+            ...newAnnotation,
+        ];
+    } else {
+        annotationsToDraw = [...[], ...newAnnotation];
+    }
+
     // const imageAtIndex: HTMLImageElement = new Image();
     // let heightTemp = 100;
     // let widthTemp = 100;
@@ -147,9 +192,9 @@ const MainPanel = ({
                             {annotationsToDraw.map((value) => {
                                 return (
                                     <Group x={value.x} y={value.y}>
-                                        <Html>
+                                        {/* <Html>
                                             <button>Delete</button>
-                                        </Html>
+                                        </Html> */}
                                         <Rect
                                             x={0}
                                             y={0}
