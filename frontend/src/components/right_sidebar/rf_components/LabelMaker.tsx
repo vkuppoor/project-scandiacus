@@ -9,11 +9,7 @@ import {
 } from "@heroicons/react/solid";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-type labelsObj = {
-    labelNames: string[];
-    isLabelEditOpen: boolean[];
-};
+import { labelsObj } from "../../../App";
 
 type Props = {
     labels: labelsObj;

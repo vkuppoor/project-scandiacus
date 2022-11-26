@@ -4,10 +4,45 @@ import LeftSidebar from "./components/left_sidebar/LeftSidebar";
 import MainPanel from "./components/main_panel/MainPanel";
 import RightSidebar from "./components/right_sidebar/RightSidebar";
 
-type labelsObj = {
+export type labelsObj = {
     labelNames: string[];
     isLabelEditOpen: boolean[];
 };
+
+export type exportInfoType = {
+    outputFormat: "";
+    datasetInfo: {
+        year: string;
+        version: string;
+        description: string;
+        contributer: string;
+        url: string;
+        dateCreated: string;
+    };
+    licenses: licenseType[];
+    datasetFiles: datasetFileType[];
+};
+
+type licenseType = {
+    url: string;
+    name: string;
+};
+
+type datasetFileType = {
+    imageName: string;
+    imgSize: {
+        height: number;
+        width: number;
+    };
+    annotations: annotationType[];
+};
+
+type annotationType = {
+    coord: coordType[];
+    label: string;
+};
+
+type coordType = number[];
 
 const App: React.FC = () => {
     const [files, setFiles] = React.useState<any>([]);
@@ -44,6 +79,20 @@ const App: React.FC = () => {
     const [labels, setLabels] = React.useState<labelsObj>({
         labelNames: ["cats", "dogs"],
         isLabelEditOpen: [false, false],
+    });
+
+    const [exportInfo, setExportInfo] = React.useState<exportInfoType>({
+        outputFormat: "",
+        datasetInfo: {
+            year: "",
+            version: "",
+            description: "",
+            contributer: "",
+            url: "",
+            dateCreated: "",
+        },
+        licenses: [],
+        datasetFiles: [],
     });
 
     const [selectedLabel, setSelectedLabel] = React.useState<string>("");
