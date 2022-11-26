@@ -62,29 +62,12 @@ const MainPanel = ({
                 key: annotations.length + 1,
             };
 
-            // let annotationList: Annotation[] = [];
-            // if (annotations[imageIndex]) {
-            //     annotationList = [...annotations[imageIndex].annotationList];
-            //     annotationList.push(annotationToAdd);
-            // } else {
-            //     annotationList.push(annotationToAdd);
-            // }
-
             let imagesLabels: AnnotationsForImage[] = _.cloneDeep(annotations);
-            // let imagesLabels: AnnotationsForImage[] = [...annotations];
             imagesLabels[imageIndex].annotationList.push(annotationToAdd);
-
-            // if (fileAtIndex != null) {
-            //     imagesLabels[imageIndex].imageName = fileAtIndex.name;
-            // } else {
-            //     imagesLabels[imageIndex].imageName = "";
-            // }
-            // annotations.push(annotationToAdd);
             setNewAnnotation([]);
             setAnnotations(imagesLabels);
         }
     };
-    console.log("anno list", annotations);
 
     const handleMouseMove = (event: any) => {
         if (newAnnotation.length === 1) {
@@ -111,7 +94,6 @@ const MainPanel = ({
                 imageName: element.name,
             });
         });
-        console.log("imagesLabels", imagesLabels);
         setAnnotations(imagesLabels);
     }, [filteredImageFiles]);
 
@@ -130,7 +112,6 @@ const MainPanel = ({
 
     let annotationsToDraw: any[] = [];
     if (fileAtIndex != null && annotations.length != 0) {
-        // console.log("anno listlsdsa", annotations[imageIndex].annotationList);
         annotationsToDraw = [
             ...annotations[imageIndex].annotationList,
             ...newAnnotation,
@@ -139,46 +120,9 @@ const MainPanel = ({
         annotationsToDraw = [...[], ...newAnnotation];
     }
 
-    // const imageAtIndex: HTMLImageElement = new Image();
-    // let heightTemp = 100;
-    // let widthTemp = 100;
-    // if (filteredImageFiles.length !== 0) {
-    //     imageAtIndex.src = fileAtIndex.preview;
-    //     heightTemp = imageAtIndex.height;
-    //     widthTemp = imageAtIndex.width;
-    // }
-
-    // const handleDrawCanvas = (ctx: CanvasRenderingContext2D) => {
-    //     // imageAtIndex.onload = () => {
-    //     if (ctx != null) {
-    //         ctx.drawImage(imageAtIndex, 0, 0);
-    //         ctx.fillStyle = "rgb(200, 0, 0)";
-    //         ctx.fillRect(10, 10, 50, 50);
-
-    //         ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-    //         ctx.fillRect(30, 30, 50, 50);
-    //     }
-    //     // setCurrImageSrc(img.src);
-    //     // setCount(count + 1);
-    //     // console.log("src", currImageSrc);
-    //     // console.log("count", count);
-    //     // setCurrImage(img);
-    //     // };
-    // };
-
     return (
         <div className="main-panel | flex justify-center items-center | w-full h-screen">
             {filteredImageFiles.length !== 0 && image ? (
-                // <div
-                //     key={fileAtIndex.name}
-                //     className="image-container |  flex justify-center items-center | w-full h-full"
-                // >
-                //     <img
-                //         src={fileAtIndex.preview}
-                //         className="image | my-1 h-full w-auto object-contain"
-                //         alt=""
-                //     />
-                // </div>
                 <div className="canvas-container | flex justify-center items-center">
                     <Stage
                         width={imageWidth}
