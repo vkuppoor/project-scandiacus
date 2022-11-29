@@ -136,6 +136,7 @@ const App: React.FC = () => {
                     imageFileTypes={imageFileTypes}
                     filteredImageFiles={filteredImageFiles}
                     imageIndex={imageIndex}
+                    selectedLabel={selectedLabel}
                 />
             </div>
             <div className="sidebar | col-span-3">
